@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HookFlow AI — Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070710;--bg2:#0d0d1a;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--bh:rgba(139,92,246,0.4);--v:#8b5cf6;--vl:#a78bfa;--cy:#22d3ee;--gr:#4ade80;--t:#f1f0ff;--t2:#94a3b8;--t3:#475569;--r:16px;--rs:10px;--glow:0 0 40px rgba(139,92,246,0.25)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);line-height:1.6;overflow-x:hidden}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(7,7,16,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,var(--vl),var(--cy));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.plan-pill{padding:5px 16px;border-radius:100px;font-size:.78rem;font-weight:700;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(34,211,238,.1));color:var(--vl);border:1px solid rgba(139,92,246,.35)}
+.dl{display:flex;min-height:calc(100vh - 64px)}
+.sb{width:228px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);padding:18px 9px;display:flex;flex-direction:column;gap:3px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+.sbs{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:9px 9px 4px;margin-top:5px}
+.sbi{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:var(--rs);font-size:.84rem;font-weight:500;color:var(--t2);cursor:pointer;transition:all .2s;border:none;background:none;width:100%;text-align:left}
+.sbi:hover{color:var(--t);background:var(--card)}.sbi.active{color:var(--t);background:rgba(139,92,246,.15)}
+.sic{font-size:.9rem;width:17px;text-align:center}
+.dm{flex:1;padding:30px 34px;overflow-y:auto}
+.dtt{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;margin-bottom:3px}
+.dsb{font-size:.84rem;color:var(--t2);margin-bottom:26px}
+.tool{display:none}.tool.active{display:block}
+.tcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px}
+label{font-size:.79rem;font-weight:600;color:var(--t2);display:block;margin-bottom:5px}
+input[type=text],textarea,select{width:100%;padding:10px 13px;border-radius:var(--rs);background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--t);font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;transition:all .2s;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--v);box-shadow:0 0 0 3px rgba(139,92,246,.15)}
+textarea{min-height:74px}
+select option{background:var(--bg2)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
+.fg{margin-bottom:13px}
+.gb{display:inline-flex;align-items:center;gap:7px;padding:11px 21px;border-radius:var(--rs);background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;font-size:.875rem;font-weight:600;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(139,92,246,.35)}
+.gb:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(139,92,246,.5)}
+.gb:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.rb{background:rgba(255,255,255,.02);border:1px solid rgba(139,92,246,.17);border-radius:var(--rs);padding:17px;margin-top:16px;display:none}
+.rb.show{display:block;animation:fu .4s ease}
+.rh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.rt{font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;color:var(--vl)}
+.cb{font-size:.71rem;font-weight:600;color:var(--t3);background:none;border:1px solid var(--border);border-radius:6px;padding:4px 9px;cursor:pointer;transition:all .2s}
+.cb:hover{color:var(--t);border-color:var(--bh)}
+.rc{font-size:.85rem;line-height:1.82;white-space:pre-wrap;color:var(--t2)}
+.rc strong{color:var(--t)}
+.dots{display:inline-flex;gap:4px;align-items:center}
+.dots span{width:6px;height:6px;border-radius:50%;background:var(--vl);animation:bnc 1.4s infinite ease-in-out both}
+.dots span:nth-child(1){animation-delay:-.32s}.dots span:nth-child(2){animation-delay:-.16s}
+.welcome-box{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(34,211,238,.06));border:1px solid rgba(139,92,246,.25);border-radius:var(--r);padding:20px 22px;margin-bottom:22px}
+.welcome-box strong{font-family:'Syne',sans-serif;font-size:.95rem;color:var(--vl)}
+.welcome-box p{font-size:.8rem;color:var(--t2);margin-top:4px;line-height:1.6}
+.qg{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:9px;margin-bottom:22px}
+.qi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px;cursor:pointer;transition:all .25s;text-align:center}
+.qi:hover{border-color:var(--bh);background:rgba(139,92,246,.07);transform:translateY(-2px)}
+.qico{font-size:1.25rem;margin-bottom:6px}.qn{font-size:.76rem;font-weight:600}
+.toast{position:fixed;bottom:21px;right:21px;z-index:9999;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 15px;font-size:.82rem;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,0,0,.5);animation:fu .3s ease;max-width:285px}
+.toast.ok{border-color:rgba(74,222,128,.3)}.toast.err{border-color:rgba(248,113,113,.3)}
+@keyframes fu{from{opacity:0;transform:translateY(17px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bnc{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@media(max-width:768px){nav{padding:0 14px}.dl{flex-direction:column}.sb{width:100%;height:auto;position:static;flex-direction:row;flex-wrap:wrap;padding:9px;gap:3px;border-right:none;border-bottom:1px solid var(--border)}.sbs{display:none}.sbi span:not(.sic){display:none}.sbi{width:auto;flex:0}.dm{padding:18px 15px}.fr{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">⚡ HookFlow AI</div>
+  <div class="plan-pill">⚡ Pro — 19.99€/mois</div>
+</nav>
+<div class="dl">
+  <aside class="sb">
+    <button class="sbi active" onclick="sw('overview',this)"><span class="sic">🏠</span><span>Accueil</span></button>
+    <div class="sbs">Tous tes outils</div>
+    <button class="sbi" onclick="sw('hooks',this)"><span class="sic">🪝</span><span>Hooks TikTok</span></button>
+    <button class="sbi" onclick="sw('scripts',this)"><span class="sic">🎬</span><span>Scripts Vidéo</span></button>
+    <button class="sbi" onclick="sw('offer',this)"><span class="sic">💎</span><span>Offre Marketing</span></button>
+    <button class="sbi" onclick="sw('emails',this)"><span class="sic">📧</span><span>Emails Marketing</span></button>
+    <button class="sbi" onclick="sw('salespage',this)"><span class="sic">📄</span><span>Page de Vente</span></button>
+    <button class="sbi" onclick="sw('analyzer',this)"><span class="sic">🔍</span><span>Analyseur</span></button>
+  </aside>
+  <main class="dm">
+
+    <!-- OVERVIEW -->
+    <div class="tool active" id="tool-overview">
+      <div class="dtt">Bienvenue sur HookFlow AI ! 🎉</div>
+      <div class="dsb">Plan Pro actif — tous les outils sont débloqués.</div>
+      <div class="welcome-box">
+        <strong>✅ Accès complet — 6 outils IA débloqués</strong>
+        <p>Hooks · Scripts · Offre Marketing · Séquence Emails · Page de Vente · Analyseur de contenu<br>Génère autant que tu veux, sans limite.</p>
+      </div>
+      <div class="qg">
+        <div class="qi" onclick="sw('hooks',null)"><div class="qico">🪝</div><div class="qn">Hooks TikTok</div></div>
+        <div class="qi" onclick="sw('scripts',null)"><div class="qico">🎬</div><div class="qn">Scripts Vidéo</div></div>
+        <div class="qi" onclick="sw('offer',null)"><div class="qico">💎</div><div class="qn">Offre Marketing</div></div>
+        <div class="qi" onclick="sw('emails',null)"><div class="qico">📧</div><div class="qn">Emails Marketing</div></div>
+        <div class="qi" onclick="sw('salespage',null)"><div class="qico">📄</div><div class="qn">Page de Vente</div></div>
+        <div class="qi" onclick="sw('analyzer',null)"><div class="qico">🔍</div><div class="qn">Analyseur</div></div>
+      </div>
+      <div class="tcard" style="background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(34,211,238,.04));border-color:rgba(139,92,246,.17)">
+        <p style="font-size:.84rem;color:var(--t2);line-height:1.7">💡 <strong style="color:var(--t)">Astuce :</strong> Les hooks qui commencent par <strong style="color:var(--t)">"POV :"</strong> génèrent <strong style="color:var(--vl)">3.2x plus de rétention</strong> dans les 3 premières secondes. Essaie maintenant →</p>
+      </div>
+    </div>
+
+    <!-- HOOKS -->
+    <div class="tool" id="tool-hooks">
+      <div class="dtt">🪝 Hooks TikTok</div><div class="dsb">10 hooks viraux qui stoppent le scroll.</div>
+      <div class="tcard">
+        <div class="fr"><div class="fg" style="margin:0"><label>Niche</label><input type="text" id="h-niche" placeholder="ex: dropshipping, fitness..."></div><div class="fg" style="margin:0"><label>Produit</label><input type="text" id="h-prod" placeholder="ex: formation, ebook..."></div></div>
+        <div class="fg"><label>Transformation promise</label><input type="text" id="h-result" placeholder="ex: gagner 1000€/mois, perdre 5kg..."></div>
+        <div class="fg"><label>Audience cible</label><input type="text" id="h-audience" placeholder="ex: débutants 18-35 ans..."></div>
+        <button class="gb" id="btn-h" onclick="gen('hooks')">⚡ Générer 10 hooks viraux</button>
+        <div class="rb" id="res-hooks"><div class="rh"><span class="rt">🪝 Tes 10 Hooks Viraux</span><button class="cb" onclick="cp('hooks')">📋 Copier</button></div><div class="rc" id="rc-hooks"></div></div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <div class="tool" id="tool-scripts">
+      <div class="dtt">🎬 Scripts Vidéo</div><div class="dsb">Scripts 15–60s face cam & faceless avec CTA.</div>
+      <div class="tcard">
+        <div class="fr"><div class="fg" style="margin:0"><label>Produit</label><input type="text" id="s-prod" placeholder="ex: ebook dropshipping"></div><div class="fg" style="margin:0"><label>Format</label><select id="s-fmt"><option value="face cam">Face Cam</option><option value="faceless">Faceless</option><option value="les deux">Les deux</option></select></div></div>
+        <div class="fr"><div class="fg" style="margin:0"><label>Durée</label><select id="s-dur"><option value="15">15s</option><option value="30" selected>30s</option><option value="60">60s</option></select></div><div class="fg" style="margin:0"><label>CTA</label><input type="text" id="s-cta" placeholder="ex: Lien en bio, DM INFO..."></div></div>
+        <div class="fg"><label>Bénéfice principal</label><input type="text" id="s-benefit" placeholder="ex: générer 500€/semaine..."></div>
+        <button class="gb" id="btn-s" onclick="gen('scripts')">⚡ Générer mon script</button>
+        <div class="rb" id="res-scripts"><div class="rh"><span class="rt">🎬 Ton Script</span><button class="cb" onclick="cp('scripts')">📋 Copier</button></div><div class="rc" id="rc-scripts"></div></div>
+      </div>
+    </div>
+
+    <!-- OFFER -->
+    <div class="tool" id="tool-offer">
+      <div class="dtt">💎 Offre Marketing</div><div class="dsb">Prix, bonus et argumentaire irrésistible.</div>
+      <div class="tcard">
+        <div class="fr"><div class="fg" style="margin:0"><label>Nom du produit</label><input type="text" id="o-name" placeholder="ex: Formation TikTok"></div><div class="fg" style="margin:0"><label>Type</label><select id="o-type"><option>Formation en ligne</option><option>Ebook / PDF</option><option>Coaching 1:1</option><option>Produit physique</option></select></div></div>
+        <div class="fr"><div class="fg" style="margin:0"><label>Prix (€)</label><input type="text" id="o-price" placeholder="ex: 47"></div><div class="fg" style="margin:0"><label>Niche</label><input type="text" id="o-niche" placeholder="ex: marketing digital"></div></div>
+        <div class="fg"><label>Contenu inclus</label><textarea id="o-content" placeholder="Décris ce que reçoit le client..."></textarea></div>
+        <button class="gb" id="btn-o" onclick="gen('offer')">⚡ Créer mon offre irrésistible</button>
+        <div class="rb" id="res-offer"><div class="rh"><span class="rt">💎 Ton Offre</span><button class="cb" onclick="cp('offer')">📋 Copier</button></div><div class="rc" id="rc-offer"></div></div>
+      </div>
+    </div>
+
+    <!-- EMAILS -->
+    <div class="tool" id="tool-emails">
+      <div class="dtt">📧 Séquence Emails</div><div class="dsb">5 emails de vente & relance prêts à l'emploi.</div>
+      <div class="tcard">
+        <div class="fr"><div class="fg" style="margin:0"><label>Produit</label><input type="text" id="e-prod" placeholder="ex: Formation TikTok"></div><div class="fg" style="margin:0"><label>Prix</label><input type="text" id="e-price" placeholder="ex: 97€"></div></div>
+        <div class="fr"><div class="fg" style="margin:0"><label>Transformation</label><input type="text" id="e-transfo" placeholder="ex: générer 1000€/mois"></div><div class="fg" style="margin:0"><label>Expéditeur</label><input type="text" id="e-brand" placeholder="ex: Alex de HookFlow"></div></div>
+        <button class="gb" id="btn-e" onclick="gen('emails')">⚡ Générer mes 5 emails</button>
+        <div class="rb" id="res-emails"><div class="rh"><span class="rt">📧 Séquence 5 Emails</span><button class="cb" onclick="cp('emails')">📋 Copier</button></div><div class="rc" id="rc-emails"></div></div>
+      </div>
+    </div>
+
+    <!-- SALES PAGE -->
+    <div class="tool" id="tool-salespage">
+      <div class="dtt">📄 Page de Vente</div><div class="dsb">Structure complète qui convertit.</div>
+      <div class="tcard">
+        <div class="fr"><div class="fg" style="margin:0"><label>Nom du produit</label><input type="text" id="sp-name" placeholder="ex: TikTok Cash System"></div><div class="fg" style="margin:0"><label>Prix</label><input type="text" id="sp-price" placeholder="ex: 97€"></div></div>
+        <div class="fg"><label>Promesse principale</label><input type="text" id="sp-promise" placeholder="ex: Générer 1000€/mois en 30 jours"></div>
+        <div class="fg"><label>Pour qui ?</label><textarea id="sp-for" placeholder="Décris ton client idéal..."></textarea></div>
+        <div class="fg"><label>Modules / bonus inclus</label><textarea id="sp-modules" placeholder="Liste ce que reçoit le client..."></textarea></div>
+        <button class="gb" id="btn-sp" onclick="gen('salespage')">⚡ Générer ma page de vente</button>
+        <div class="rb" id="res-salespage"><div class="rh"><span class="rt">📄 Ta Page de Vente</span><button class="cb" onclick="cp('salespage')">📋 Copier</button></div><div class="rc" id="rc-salespage"></div></div>
+      </div>
+    </div>
+
+    <!-- ANALYZER -->
+    <div class="tool" id="tool-analyzer">
+      <div class="dtt">🔍 Analyseur Contenu</div><div class="dsb">Score + 5 améliorations pour doubler ta rétention.</div>
+      <div class="tcard">
+        <div class="fg"><label>Décris ta vidéo TikTok</label><textarea id="a-desc" style="min-height:90px" placeholder="Ex: Ma vidéo commence par 'Tu veux gagner de l'argent ?' puis je présente mon produit 20s et dis 'Lien en bio'..."></textarea></div>
+        <div class="fr"><div class="fg" style="margin:0"><label>Niche</label><input type="text" id="a-niche" placeholder="ex: dropshipping"></div><div class="fg" style="margin:0"><label>Objectif</label><select id="a-goal"><option>Vendre un produit</option><option>Générer des abonnés</option><option>Driver du trafic</option><option>Notoriété</option></select></div></div>
+        <button class="gb" id="btn-a" onclick="gen('analyzer')">⚡ Analyser mon contenu</button>
+        <div class="rb" id="res-analyzer"><div class="rh"><span class="rt">🔍 Analyse & Recommandations</span><button class="cb" onclick="cp('analyzer')">📋 Copier</button></div><div class="rc" id="rc-analyzer"></div></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div id="tc"></div>
+<script>
+function sw(n,btn){document.querySelectorAll('.tool').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.sbi').forEach(b=>b.classList.remove('active'));document.getElementById('tool-'+n).classList.add('active');if(btn)btn.classList.add('active');}
+
+function gen(tool){
+  const cfg={
+    hooks:{btn:'btn-h',rc:'rc-hooks',res:'res-hooks',fn:gHooks},
+    scripts:{btn:'btn-s',rc:'rc-scripts',res:'res-scripts',fn:gScripts},
+    offer:{btn:'btn-o',rc:'rc-offer',res:'res-offer',fn:gOffer},
+    emails:{btn:'btn-e',rc:'rc-emails',res:'res-emails',fn:gEmails},
+    salespage:{btn:'btn-sp',rc:'rc-salespage',res:'res-salespage',fn:gSalesPage},
+    analyzer:{btn:'btn-a',rc:'rc-analyzer',res:'res-analyzer',fn:gAnalyzer}
+  };
+  const c=cfg[tool];if(!c)return;
+  const btn=document.getElementById(c.btn),res=document.getElementById(c.res),rc=document.getElementById(c.rc);
+  btn.disabled=true;
+  btn.innerHTML='<div class="dots"><span></span><span></span><span></span></div> Génération en cours...';
+  res.classList.add('show');
+  rc.innerHTML='<span style="color:var(--t3);font-style:italic">⚡ L\'IA analyse et rédige ton contenu...</span>';
+  setTimeout(()=>{rc.innerHTML=fmt(c.fn());btn.disabled=false;btn.innerHTML='⚡ Régénérer';toast('✅ Généré !','ok');},1700+Math.random()*500);
+}
+
+function fmt(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}
+
+function gHooks(){
+  const n=v('h-niche')||'marketing digital',p=v('h-prod')||'formation',r=v('h-result')||'gagner de l\'argent',a=v('h-audience')||'les débutants';
+  return [
+`🪝 **HOOK 1 — Statistique Choc**\n"${rnd(70,95)}% des créateurs en ${n} abandonnent avant leur premier euro. Voilà exactement pourquoi."`,
+`🪝 **HOOK 2 — POV**\n"POV : tu viens de découvrir la méthode exacte pour ${r} — sans expérience, en partant de zéro."`,
+`🪝 **HOOK 3 — Question Directe**\n"Tu es en ${n} mais tes vidéos font moins de 1000 vues ? Attends 15 secondes."`,
+`🪝 **HOOK 4 — Contre-Intuitif**\n"Tout le monde te dit de poster tous les jours. C'est exactement pour ça que tu ne vends pas encore."`,
+`🪝 **HOOK 5 — Storytelling**\n"Il y a ${rnd(6,18)} mois j'avais 0 abonnés et 0€ de revenus. Voilà ce que j'ai changé."`,
+`🪝 **HOOK 6 — Promesse Spécifique**\n"Comment ${r} en ${rnd(14,30)} jours — même débutant complet en ${n}."`,
+`🪝 **HOOK 7 — FOMO**\n"Cette stratégie ${n} fonctionne en ${new Date().getFullYear()}. Dans 6 mois elle sera saturée."`,
+`🪝 **HOOK 8 — Erreurs**\n"Si tu ne vends pas encore avec ${p}, c'est à cause de ces 3 erreurs que personne ne dit."`,
+`🪝 **HOOK 9 — Résultat Chiffré**\n"J'ai généré ${rnd(800,3500)}€ en ${rnd(7,21)} jours avec ${p}. Voilà la méthode complète."`,
+`🪝 **HOOK 10 — Empathie**\n"Pour ${a} qui galèrent à ${r} : ce n'est pas de ta faute. Personne ne t'a expliqué ça."`,
+`\n---\n💡 **Conseil :** Teste les hooks 2, 5 et 9 en premier — ils convertissent 3x mieux.`
+  ].join('\n\n');
+}
+
+function gScripts(){
+  const p=v('s-prod')||'mon produit',fmt2=v('s-fmt')||'face cam',dur=v('s-dur')||'30',cta=v('s-cta')||'Lien en bio',b=v('s-benefit')||'changer ta vie';
+  const t1=Math.round(dur*.35),t2=Math.round(dur*.7);
+  let out='';
+  if(fmt2==='face cam'||fmt2==='les deux'){
+    out+=`🎬 **VERSION FACE CAM — ${dur} secondes**\n\n`;
+    out+=`⏱ [0–3s] **HOOK** _(regarde caméra, expression intense)_\n"${hLine(p,b)}"\n\n`;
+    out+=`⏱ [3–${t1}s] **PROBLÈME** _(ton sérieux)_\n"La plupart des gens échouent à ${b.toLowerCase()} — pas par manque de motivation, mais par manque de méthode."\n\n`;
+    out+=`⏱ [${t1}–${t2}s] **SOLUTION** _(ton confiant, souri)_\n"C'est exactement pour ça que j'ai créé ${p}. Un système simple pour ${b.toLowerCase()} — même en partant de zéro."\n\n`;
+    out+=`⏱ [${t2}–${dur}s] **CTA** _(pointe vers le bas)_\n"${cta} maintenant — les places sont limitées."\n`;
+  }
+  if(fmt2==='les deux') out+='\n---\n\n';
+  if(fmt2==='faceless'||fmt2==='les deux'){
+    out+=`🎬 **VERSION FACELESS — ${dur} secondes**\n\n`;
+    out+=`⏱ [0–3s] **TEXTE ANIMÉ**\n"${hLine(p,b)}"\n🎵 Son trending + beat drop\n\n`;
+    out+=`⏱ [3–${t1}s] **B-ROLL + VOIX OFF**\nVisuels : résultats, avant/après, captures d'écran\nVO : "La plupart échouent à ${b.toLowerCase()} faute de système. ${p} change ça."\n\n`;
+    out+=`⏱ [${t1}–${dur}s] **CTA ANIMÉ**\nTexte animé : "⚡ ${cta}"\nFlèche vers le bas\nVO : "Prends ton accès maintenant →"\n`;
+  }
+  out+=`\n---\n✅ **CHECKLIST**\n☐ Sous-titres activés (+${rnd(25,40)}% rétention)\n☐ Lien bio à jour\n☐ Publier entre 19h–21h\n☐ Premier commentaire : ton CTA`;
+  return out;
+}
+
+function gOffer(){
+  const n=v('o-name')||'Ma Formation',type=v('o-type')||'Formation',price=parseInt(v('o-price'))||47,niche=v('o-niche')||'marketing digital';
+  const c=Math.round(price*1.5/10)*10,bar=price*rnd(3,5);
+  return `💰 **PRIX CONSEILLÉ : ${c}€**\nPrix barré : ~~${bar}€~~ → **${c}€** (économie ${bar-c}€)\n\n✦ **TITRE D'OFFRE**\n"${n} : La méthode exacte pour dominer ${niche} — même en partant de zéro"\n\n⚡ **PROMESSE UNIQUE**\n"Le seul ${type.toLowerCase()} qui combine stratégie, outils ET support pour passer à l'action dès aujourd'hui."\n\n🎁 **5 BONUS IRRÉSISTIBLES**\n\n**Bonus 1** — Guide Démarrage Rapide 48h (valeur : 47€)\n→ Lance dès demain sans procrastiner\n\n**Bonus 2** — 50 Hooks Viraux Prêts à l'Emploi (valeur : 37€)\n→ Économise 10h de brainstorming\n\n**Bonus 3** — Templates TikTok Copy-Paste (valeur : 29€)\n→ Publie en 15 minutes chrono\n\n**Bonus 4** — Masterclass Mindset Vendeur (valeur : 19€)\n→ Élimine le frein psychologique n°1\n\n**Bonus 5** — Groupe VIP Lifetime (valeur : 97€)\n→ Communauté + sessions live hebdo\n\n💎 **Valeur totale : ${47+37+29+19+97+price}€ → TON PRIX : ${c}€**\n🛡️ Garantie 30 jours · 🔥 Seulement ${rnd(8,22)} places à ce prix`;
+}
+
+function gEmails(){
+  const p=v('e-prod')||'ma formation',price=v('e-price')||'97€',tr=v('e-transfo')||'transformer ta vie',br=v('e-brand')||'moi';
+  const pUp=Math.round(parseInt(price)*1.6)+'€';
+  return `📧 **EMAIL 1 — BIENVENUE (Jour 0)**\nObjet : Tu as fait le bon choix aujourd'hui 👋\n\nSalut [Prénom],\n\nBienvenue ! Je suis ${br}.\n${tr}, c'est possible — mais pas de la façon dont on te l'explique d'habitude.\nDans les prochains jours, je te partage exactement ce qui a tout changé.\n\nUne question : quel est ton plus grand obstacle ? Réponds à cet email.\n\n${br}\n\n━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 2 — PROBLÈME (Jour 2)**\nObjet : Pourquoi ${rnd(85,97)}% échouent (et comment l'éviter)\n\nSalut [Prénom],\n\n❌ Erreur 1 : Copier sans adapter à ta situation\n❌ Erreur 2 : Attendre d'être "prêt" — tu ne le seras jamais\n❌ Erreur 3 : Négliger ce détail crucial que j'explique demain\n\nDemain : la solution. Guette ton inbox.\n${br}\n\n━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 3 — SOLUTION (Jour 3)**\nObjet : Voilà ce qui change TOUT, [Prénom]\n\nJ'ai créé **${p}** exactement pour résoudre ce problème.\n\n✅ Méthode complète étape par étape\n✅ Raccourcis que j'aurais voulu connaître\n✅ Support pour ne jamais rester bloqué\n\n👉 Découvrir ${p} : [LIEN] — Prix : **${price}**\n${br}\n\n━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 4 — OBJECTIONS (Jour 5)**\nObjet : "Je n'ai pas le temps / les moyens..."\n\n💭 "Pas le temps" → 20 min/jour suffisent\n💭 "Trop cher" → ${price} vs stagner 12 mois. Quel est le vrai coût ?\n💭 "Pas les compétences" → Mes meilleurs résultats : des débutants complets\n💭 "Si ça marche pas ?" → Garantie 30 jours, remboursement intégral\n\nIl reste ${rnd(9,19)} places à ${price}. Ensuite : ${pUp}.\n👉 [LIEN]\n${br}\n\n━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 5 — DERNIÈRE CHANCE (Jour 7)**\nObjet : ⚠️ Fermeture dans 24h — dernier message [Prénom]\n\nDans 24h, **${p}** passe à **${pUp}**.\n\n👉 Dernière chance — expire dans 24h : [LIEN]\n\n${br}\nP.S. Des questions ? Réponds ici, je réponds personnellement.`;
+}
+
+function gSalesPage(){
+  const n=v('sp-name')||'Mon Produit',price=v('sp-price')||'97€',promise=v('sp-promise')||'atteindre tes objectifs',forWho=v('sp-for')||'les débutants',mods=v('sp-modules')||'contenu complet';
+  const val=Math.round(parseInt(price)*4)+'€',pUp=Math.round(parseInt(price)*1.5)+'€';
+  const modList=mods.split('\n').filter(Boolean).map((m,i)=>`✦ **Module ${i+1}** : ${m.trim()}`).join('\n');
+  return `━━━━ PAGE DE VENTE — ${n} ━━━━\n\n🔥 **HEADLINE**\n"${promise} — En ${rnd(14,30)} Jours Ou Je Te Rembourse Intégralement"\n\n📌 **SOUS-TITRE**\n"La méthode qu'utilisent déjà ${rnd(400,2500)} personnes pour ${promise.toLowerCase()} — sans expérience, sans budget."\n\n━━━━ PROBLÈME ━━━━\n• Regarder les autres réussir pendant que tu stagnes\n• Tester des stratégies sans jamais voir de résultats\n• Te sentir dépassé sans savoir par où commencer\n\nCe n'est pas ta faute. Il te manque juste le bon système.\n\n━━━━ CE QUE TU REÇOIS ━━━━\n${modList||'✦ **Module 1** : [Ajoute tes modules ici]'}\n\n━━━━ ILS EN PARLENT ━━━━\n⭐⭐⭐⭐⭐ "J'ai réussi à ${promise.toLowerCase()} en ${rnd(14,21)} jours. Incroyable !" — Marie D.\n⭐⭐⭐⭐⭐ "Meilleur investissement de l'année. Résultats dès la première semaine." — Thomas R.\n⭐⭐⭐⭐⭐ "Simple, actionnable, et ça marche vraiment." — Sarah L.\n\n━━━━ PRIX ━━━━\n~~Valeur réelle : ${val}~~\n**Prix aujourd'hui : ${price}**\n\n🛡️ Garantie Satisfait ou Remboursé 30 Jours\n\n━━━━ FAQ ━━━━\n**Q : Pour débutants ?** → Oui, conçu pour ${forWho}. Zéro prérequis.\n**Q : Temps requis ?** → 20-30 min/jour.\n**Q : Accès comment ?** → Immédiat après paiement, à vie.\n\n━━━━ CTA FINAL ━━━━\n🚀 **[BOUTON] → Oui, je veux ${promise} pour ${price}**\n"Accès immédiat · Garantie 30 jours · Paiement sécurisé"\n\nP.S. Ce prix passe à ${pUp} très prochainement.`;
+}
+
+function gAnalyzer(){
+  const desc=v('a-desc')||'vidéo standard',niche=v('a-niche')||'ma niche',goal=v('a-goal')||'vendre',score=rnd(5,8),bars='█'.repeat(score)+'░'.repeat(10-score),hs=rnd(4,9),ret=rnd(38,72);
+  return `📊 **SCORE GLOBAL : ${score}/10**\n[${bars}] ${score*10}%\n\n━━━━ HOOK (0–3s) ━━━━\n**Score : ${hs}/10**\n${hs>=6?'✅ Hook interpelle directement ta cible':'❌ Manque de spécificité et d\'impact'}\n\n✏️ **Hook réécrit pour ${niche} :**\n"${hLine(niche,goal)} — méthode complète en ${rnd(20,45)} secondes."\n\n━━━━ RÉTENTION ━━━━\n**Estimée : ${ret}% à 15 secondes** (objectif : 65%+)\n${ret<55?'❌ Structure AIDA non respectée — problème trop tard':'⚠️ Structure acceptable mais optimisable'}\n\nTiming recommandé :\n• 0–3s : Hook · 3–8s : Problème · 8–20s : Solution · 20s+ : CTA\n\n━━━━ CTA ━━━━\n${desc.toLowerCase().includes('lien en bio')?'⚠️ "Lien en bio" trop générique — précise la valeur':'❌ CTA non détecté ou trop tardif'}\n\n**Amélioration :** "Lien en bio → accès gratuit jusqu'à ce soir"\n\n━━━━ TOP 5 AMÉLIORATIONS ━━━━\n**1️⃣** Réécrire le hook avec un chiffre précis → **+${rnd(35,70)}% rétention à 3s**\n**2️⃣** Ajouter une preuve sociale dans les 10 premières secondes\n**3️⃣** CTA avec urgence ou bénéfice précis → **+${rnd(25,50)}% clics**\n**4️⃣** Couper ${rnd(3,7)}s de présentation — aller plus vite à la valeur\n**5️⃣** Activer les sous-titres animés → **+${rnd(20,35)}% rétention**`;
+}
+
+function v(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function hLine(p,b){const l=[`Tu veux vraiment ${b||'réussir'} ? Voilà pourquoi ça ne marche pas encore.`,`La vraie raison pour laquelle personne ne parle de ${p}.`,`J'ai réussi à ${b||'tout changer'} en ${rnd(7,30)} jours — voilà comment.`,`Ce que les "gurus" de ${p||'TikTok'} ne te disent jamais.`];return l[Math.floor(Math.random()*l.length)];}
+function cp(t){const el=document.getElementById('rc-'+t);if(!el)return;navigator.clipboard.writeText(el.innerText).then(()=>toast('📋 Copié !','ok')).catch(()=>{});}
+function toast(msg,type=''){const tc=document.getElementById('tc'),t=document.createElement('div');t.className='toast '+(type||'');t.textContent=msg;tc.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},3200);}
+</script>
+</body>
+</html>
