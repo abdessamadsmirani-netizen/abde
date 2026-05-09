@@ -5,944 +5,212 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HookFlow AI — Crée des vidéos TikTok qui vendent</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
-:root{
-  --bg:#070710;--bg2:#0d0d1a;--card:rgba(255,255,255,0.04);
-  --border:rgba(255,255,255,0.08);--bh:rgba(139,92,246,0.4);
-  --v:#8b5cf6;--vl:#a78bfa;--cy:#22d3ee;--gr:#4ade80;--am:#fbbf24;--pk:#f472b6;
-  --t:#f1f0ff;--t2:#94a3b8;--t3:#475569;
-  --r:16px;--rs:10px;--glow:0 0 40px rgba(139,92,246,0.25)
-}
+:root{--bg:#070710;--bg2:#0d0d1a;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--bh:rgba(139,92,246,0.4);--v:#8b5cf6;--vl:#a78bfa;--cy:#22d3ee;--gr:#4ade80;--t:#f1f0ff;--t2:#94a3b8;--t3:#475569;--r:16px;--rs:10px;--glow:0 0 40px rgba(139,92,246,0.25)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);line-height:1.6;overflow-x:hidden}
-.page{display:none;min-height:100vh;position:relative;z-index:1}.page.active{display:block}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;height:64px;background:rgba(7,7,16,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;cursor:pointer;
-  background:linear-gradient(135deg,var(--vl),var(--cy));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-links{display:flex;gap:6px;align-items:center}
-.nl{padding:7px 15px;border-radius:8px;font-size:.875rem;font-weight:500;color:var(--t2);cursor:pointer;transition:all .2s;border:none;background:none}
-.nl:hover{color:var(--t);background:var(--card)}
-.nb{padding:8px 18px;border-radius:8px;font-size:.875rem;font-weight:600;background:var(--v);color:#fff;border:none;cursor:pointer;transition:all .2s}
-.nb:hover{background:var(--vl);box-shadow:var(--glow)}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(7,7,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,var(--vl),var(--cy));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-cta{padding:8px 20px;border-radius:var(--rs);font-size:.875rem;font-weight:700;background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(139,92,246,.4)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(139,92,246,.55)}
 
 /* HERO */
 .hero{min-height:calc(100vh - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 20px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(139,92,246,.18),transparent 70%),
-             radial-gradient(ellipse 50% 40% at 80% 80%,rgba(34,211,238,.1),transparent 60%)}
-.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);
-  padding:6px 16px;border-radius:100px;font-size:.77rem;color:var(--vl);margin-bottom:28px;font-weight:600;animation:fu .6s ease both}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--v);animation:pdot 2s infinite;display:inline-block}
-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.3rem,6vw,4.8rem);line-height:1.05;margin-bottom:22px;animation:fu .6s .1s ease both}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(139,92,246,.2),transparent 70%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(34,211,238,.12),transparent 60%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);padding:6px 16px;border-radius:100px;font-size:.77rem;color:var(--vl);margin-bottom:28px;font-weight:600;animation:fu .6s ease both}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--v);display:inline-block;animation:pdot 2s infinite}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,6vw,5rem);line-height:1.05;margin-bottom:22px;animation:fu .6s .1s ease both}
 .acc{background:linear-gradient(135deg,var(--vl),var(--cy));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero>p{font-size:1.05rem;color:var(--t2);max-width:510px;margin:0 auto 34px;animation:fu .6s .2s ease both}
-.hero-btns{display:flex;gap:11px;flex-wrap:wrap;justify-content:center;animation:fu .6s .3s ease both}
-.bp{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--rs);font-size:.93rem;font-weight:600;
-  background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 24px rgba(139,92,246,.4)}
-.bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(139,92,246,.55)}
-.bs{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--rs);font-size:.93rem;font-weight:500;
-  background:var(--card);color:var(--t);border:1px solid var(--border);cursor:pointer;transition:all .25s}
-.bs:hover{border-color:var(--bh);background:rgba(139,92,246,.07)}
-.stats{display:flex;gap:40px;margin-top:56px;flex-wrap:wrap;justify-content:center;animation:fu .6s .45s ease both}
-.stn{font-family:'Syne',sans-serif;font-weight:800;font-size:1.75rem}
+.hero>p{font-size:1.05rem;color:var(--t2);max-width:510px;margin:0 auto 36px;animation:fu .6s .2s ease both}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border-radius:var(--rs);font-size:1rem;font-weight:700;background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 28px rgba(139,92,246,.5);animation:fu .6s .3s ease both;text-decoration:none}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(139,92,246,.6)}
+.cta-sub{font-size:.78rem;color:var(--t3);margin-top:14px;animation:fu .6s .4s ease both}
+.stats{display:flex;gap:48px;margin-top:60px;flex-wrap:wrap;justify-content:center;animation:fu .6s .5s ease both}
+.stn{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem}
 .stl{font-size:.77rem;color:var(--t3);margin-top:2px}
 
 /* SECTIONS */
-.sec{padding:86px 40px;max-width:1200px;margin:0 auto}
+.sec{padding:88px 40px;max-width:1100px;margin:0 auto}
 .sl{font-size:.71rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vl);margin-bottom:12px}
-.st{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.15;margin-bottom:12px}
-.ss{color:var(--t2);font-size:.97rem;max-width:490px}
+.st{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:14px}
+.ss{color:var(--t2);font-size:.97rem;max-width:480px}
 
 /* FEATURES */
-.fg2{display:grid;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));gap:13px;margin-top:48px}
-.fc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;transition:all .3s;position:relative;overflow:hidden}
-.fc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,92,246,.06),transparent);opacity:0;transition:opacity .3s}
-.fc:hover{border-color:var(--bh);transform:translateY(-3px);box-shadow:var(--glow)}.fc:hover::before{opacity:1}
-.fi{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:14px}
-.fc h3{font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem;margin-bottom:6px}
-.fc p{font-size:.84rem;color:var(--t2);line-height:1.65}
-.tag{display:inline-block;padding:2px 9px;border-radius:6px;font-size:.68rem;font-weight:700;margin-top:10px}
-.tf{background:rgba(74,222,128,.1);color:var(--gr);border:1px solid rgba(74,222,128,.2)}
-.tp{background:rgba(139,92,246,.1);color:var(--vl);border:1px solid rgba(139,92,246,.2)}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:48px}
+.fc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:26px;transition:all .3s;opacity:0;transform:translateY(20px)}
+.fc.visible{opacity:1;transform:translateY(0)}
+.fc:hover{border-color:var(--bh);transform:translateY(-3px);box-shadow:var(--glow)}
+.fi{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:14px}
+.fc h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:7px}
+.fc p{font-size:.85rem;color:var(--t2);line-height:1.65}
 
 /* STEPS */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:44px}
-.step{padding:32px 24px;position:relative}
-.step:not(:last-child)::after{content:'→';position:absolute;right:-8px;top:38px;font-size:1.1rem;color:var(--t3)}
-.sn{font-family:'Syne',sans-serif;font-weight:800;font-size:2.5rem;color:rgba(139,92,246,.15);line-height:1;margin-bottom:12px}
-.step h3{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:6px}
-.step p{font-size:.84rem;color:var(--t2)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px}
+.step{padding:36px 28px;position:relative;opacity:0;transform:translateY(20px);transition:all .5s}
+.step.visible{opacity:1;transform:translateY(0)}
+.step:not(:last-child)::after{content:'→';position:absolute;right:-8px;top:42px;font-size:1.1rem;color:var(--t3)}
+.sn{font-family:'Syne',sans-serif;font-weight:800;font-size:2.6rem;color:rgba(139,92,246,.15);line-height:1;margin-bottom:12px}
+.step h3{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:7px}
+.step p{font-size:.85rem;color:var(--t2)}
 
-/* TESTI */
-.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:13px;margin-top:40px}
-.tc2{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:21px}
-.tst{color:#fbbf24;font-size:.8rem;margin-bottom:9px}
-.tt{font-size:.86rem;color:var(--t2);line-height:1.7;margin-bottom:12px;font-style:italic}
-.tav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.79rem;color:#fff;flex-shrink:0}
+/* TESTIMONIALS */
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:44px}
+.tc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;opacity:0;transform:translateY(20px);transition:all .5s}
+.tc.visible{opacity:1;transform:translateY(0)}
+.ts{color:#fbbf24;font-size:.82rem;margin-bottom:9px}
+.tt{font-size:.87rem;color:var(--t2);line-height:1.7;margin-bottom:14px;font-style:italic}
+.tav{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;color:#fff;flex-shrink:0}
 
-/* ═══════════ PRICING ═══════════ */
-.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:52px}
-.plan{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px 22px;position:relative;transition:all .3s;display:flex;flex-direction:column}
-.plan:hover{border-color:var(--bh);transform:translateY(-4px);box-shadow:var(--glow)}
-.plan.pop{border-color:var(--v);background:rgba(139,92,246,.07);box-shadow:var(--glow)}
-.plan.pop:hover{box-shadow:0 0 60px rgba(139,92,246,.4)}
-.pbadge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);
-  background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;font-size:.68rem;font-weight:700;
-  padding:3px 12px;border-radius:100px;white-space:nowrap;letter-spacing:.04em}
-.plan-icon{font-size:1.8rem;margin-bottom:12px}
-.plan-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:4px}
-.plan-tagline{font-size:.78rem;color:var(--t2);margin-bottom:16px}
-.plan-price{font-family:'Syne',sans-serif;font-weight:800;line-height:1;margin-bottom:4px}
-.plan-price .eur{font-size:1.1rem;vertical-align:super;font-weight:600}
-.plan-price .amt{font-size:2.6rem;color:var(--t)}
-.plan-price.highlight .amt{color:var(--vl)}
-.plan-period{font-size:.75rem;color:var(--t3);margin-bottom:20px}
-.plan-feats{list-style:none;flex:1;margin-bottom:22px}
-.plan-feats li{font-size:.82rem;color:var(--t2);padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
-.plan-feats li::before{content:'✓';color:var(--gr);font-weight:700;flex-shrink:0;margin-top:1px}
-.plan-feats li.no::before{content:'✕';color:var(--t3)}.plan-feats li.no{color:var(--t3)}
-.plan-cta{width:100%;padding:12px;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .25s;margin-top:auto}
-.plan-cta.primary{background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;border:none;box-shadow:0 4px 16px rgba(139,92,246,.35)}
-.plan-cta.primary:hover{box-shadow:0 6px 24px rgba(139,92,246,.5);transform:translateY(-1px)}
-.plan-cta.outline{background:none;color:var(--t);border:1px solid var(--border)}
-.plan-cta.outline:hover{border-color:var(--bh);background:rgba(139,92,246,.07)}
+/* PRICING — single plan */
+.pricing-wrap{max-width:480px;margin:48px auto 0}
+.pcard{background:var(--card);border:1px solid rgba(139,92,246,.4);border-radius:20px;padding:40px 36px;text-align:center;position:relative;box-shadow:var(--glow)}
+.pbadge{display:inline-block;background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;font-size:.72rem;font-weight:700;padding:4px 16px;border-radius:100px;margin-bottom:20px;letter-spacing:.05em}
+.pname{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;margin-bottom:6px}
+.pdesc{font-size:.88rem;color:var(--t2);margin-bottom:24px}
+.pprice{font-family:'Syne',sans-serif;font-weight:800;font-size:3.5rem;line-height:1;color:var(--vl)}
+.pprice sup{font-size:1.4rem;vertical-align:super;font-weight:600}
+.pper{font-size:.82rem;color:var(--t3);margin-bottom:28px}
+.pfeats{list-style:none;text-align:left;margin-bottom:32px}
+.pfeats li{font-size:.88rem;color:var(--t2);padding:9px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.pfeats li::before{content:'✓';color:var(--gr);font-weight:700;flex-shrink:0;font-size:.9rem}
+.pcta{display:block;width:100%;padding:15px;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(139,92,246,.4);text-decoration:none;text-align:center}
+.pcta:hover{box-shadow:0 8px 32px rgba(139,92,246,.55);transform:translateY(-1px)}
+.pguarantee{font-size:.75rem;color:var(--t3);margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px}
 
-/* COMPARISON TABLE */
-.comp-table{width:100%;border-collapse:collapse;margin-top:48px;font-size:.84rem}
-.comp-table th{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;padding:14px 16px;text-align:left;border-bottom:2px solid var(--border);color:var(--t2)}
-.comp-table th:first-child{color:var(--t)}
-.comp-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--t2)}
-.comp-table td:first-child{color:var(--t);font-weight:500}
-.comp-table tr:hover td{background:rgba(139,92,246,.04)}
-.comp-table .yes{color:var(--gr);font-weight:700}
-.comp-table .no2{color:var(--t3)}
-.comp-table .hi{color:var(--vl);font-weight:600}
-.comp-table .plan-head{text-align:center;color:var(--t);font-size:.88rem}
-.comp-table .pop-col{background:rgba(139,92,246,.06);border-left:1px solid rgba(139,92,246,.2);border-right:1px solid rgba(139,92,246,.2)}
+/* CTA SECTION */
+.cta-sec{text-align:center;padding:88px 40px;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(139,92,246,.14),transparent 70%)}
+.cta-sec h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:14px}
+.cta-sec p{color:var(--t2);max-width:430px;margin:0 auto 28px}
 
-/* LEAD */
-.lead{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:66px 40px}
-.lead-in{max-width:580px;margin:0 auto;text-align:center}
-.lead-in h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.85rem;margin-bottom:9px}
-.lead-in p{color:var(--t2);font-size:.88rem;margin-bottom:22px}
-.lf{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
-.lf input{flex:1;min-width:210px;padding:11px 15px;border-radius:var(--rs);background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--t);font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none}
-.lf input:focus{border-color:var(--v);box-shadow:0 0 0 3px rgba(139,92,246,.15)}
-.lb{padding:11px 20px;border-radius:var(--rs);background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;font-size:.875rem;font-weight:600;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(139,92,246,.35);white-space:nowrap}
-.lb:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(139,92,246,.5)}
-
-/* CTA */
-.cta{text-align:center;padding:88px 40px;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(139,92,246,.13),transparent 70%)}
-.cta h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.75rem,4vw,2.65rem);margin-bottom:12px}
-.cta p{color:var(--t2);max-width:430px;margin:0 auto 24px}
-.gr2{display:inline-block;padding:2px;border-radius:13px;background:linear-gradient(135deg,var(--v),var(--cy));margin-bottom:32px}
-.gr2i{background:var(--bg);border-radius:11px;padding:5px 17px;font-size:.77rem;color:var(--t2)}
-
-footer{border-top:1px solid var(--border);padding:34px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:13px}
+footer{border-top:1px solid var(--border);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .flo{font-family:'Syne',sans-serif;font-weight:800;font-size:.92rem;background:linear-gradient(135deg,var(--vl),var(--cy));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 footer p{font-size:.73rem;color:var(--t3)}
-.flinks{display:flex;gap:17px}
-.flinks a{font-size:.73rem;color:var(--t3);cursor:pointer;transition:color .2s;text-decoration:none}
-.flinks a:hover{color:var(--t2)}
 
-/* DASHBOARD */
-.dl{display:flex;min-height:calc(100vh - 64px)}
-.sb{width:228px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);
-  padding:18px 9px;display:flex;flex-direction:column;gap:3px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
-.sbs{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:9px 9px 4px;margin-top:5px}
-.sbi{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:var(--rs);font-size:.84rem;font-weight:500;color:var(--t2);cursor:pointer;transition:all .2s;border:none;background:none;width:100%;text-align:left}
-.sbi:hover{color:var(--t);background:var(--card)}.sbi.active{color:var(--t);background:rgba(139,92,246,.15)}
-.sic{font-size:.9rem;width:17px;text-align:center}
-.dm{flex:1;padding:30px 34px;overflow-y:auto}
-.dtt{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;margin-bottom:3px}
-.dsb{font-size:.84rem;color:var(--t2);margin-bottom:26px}
-
-/* USER PLAN BADGE */
-.user-plan{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:.73rem;font-weight:700}
-.user-plan.free{background:rgba(71,85,105,.2);color:var(--t3);border:1px solid rgba(71,85,105,.3)}
-.user-plan.starter{background:rgba(74,222,128,.1);color:var(--gr);border:1px solid rgba(74,222,128,.25)}
-.user-plan.pro{background:rgba(139,92,246,.12);color:var(--vl);border:1px solid rgba(139,92,246,.3)}
-.user-plan.growth{background:rgba(34,211,238,.1);color:var(--cy);border:1px solid rgba(34,211,238,.25)}
-.user-plan.agency{background:rgba(251,191,36,.1);color:var(--am);border:1px solid rgba(251,191,36,.25)}
-
-/* TOOLS */
-.tool{display:none}.tool.active{display:block}
-.tcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px}
-.tct{font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem;margin-bottom:3px}
-.tcs{font-size:.79rem;color:var(--t2);margin-bottom:18px}
-label{font-size:.79rem;font-weight:600;color:var(--t2);display:block;margin-bottom:5px}
-input[type=text],textarea,select{width:100%;padding:10px 13px;border-radius:var(--rs);background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--t);font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;transition:all .2s;resize:vertical}
-input:focus,textarea:focus,select:focus{border-color:var(--v);box-shadow:0 0 0 3px rgba(139,92,246,.15)}
-textarea{min-height:74px}
-select option{background:var(--bg2)}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
-.fgg{margin-bottom:13px}
-.gb{display:inline-flex;align-items:center;gap:7px;padding:11px 21px;border-radius:var(--rs);background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;font-size:.875rem;font-weight:600;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(139,92,246,.35)}
-.gb:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(139,92,246,.5)}
-.gb:disabled{opacity:.55;cursor:not-allowed;transform:none}
-.rb{background:rgba(255,255,255,.02);border:1px solid rgba(139,92,246,.17);border-radius:var(--rs);padding:17px;margin-top:16px;display:none}
-.rb.show{display:block;animation:fu .4s ease}
-.rh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.rt{font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;color:var(--vl)}
-.cb{font-size:.71rem;font-weight:600;color:var(--t3);background:none;border:1px solid var(--border);border-radius:6px;padding:4px 9px;cursor:pointer;transition:all .2s}
-.cb:hover{color:var(--t);border-color:var(--bh)}
-.rc{font-size:.85rem;line-height:1.82;white-space:pre-wrap;color:var(--t2)}
-.rc strong{color:var(--t)}
-.dots{display:inline-flex;gap:4px;align-items:center}
-.dots span{width:6px;height:6px;border-radius:50%;background:var(--vl);animation:bnc 1.4s infinite ease-in-out both}
-.dots span:nth-child(1){animation-delay:-.32s}.dots span:nth-child(2){animation-delay:-.16s}
-.uw{margin-bottom:22px}
-.ur{display:flex;justify-content:space-between;font-size:.74rem;color:var(--t2);margin-bottom:5px}
-.ub{height:5px;background:var(--border);border-radius:100px;overflow:hidden}
-.uf{height:100%;background:linear-gradient(90deg,var(--v),var(--cy));border-radius:100px;transition:width .5s}
-.upbox{background:linear-gradient(135deg,rgba(139,92,246,.09),rgba(34,211,238,.05));border:1px solid rgba(139,92,246,.2);border-radius:var(--r);padding:17px 20px;display:flex;align-items:center;justify-content:space-between;gap:13px;flex-wrap:wrap;margin-bottom:20px}
-.upbox strong{font-family:'Syne',sans-serif;font-size:.9rem}
-.upbox p{font-size:.77rem;color:var(--t2);margin-top:2px}
-.qg{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:9px;margin-bottom:22px}
-.qi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px;cursor:pointer;transition:all .25s;text-align:center}
-.qi:hover{border-color:var(--bh);background:rgba(139,92,246,.07);transform:translateY(-2px)}
-.qico{font-size:1.25rem;margin-bottom:6px}
-.qn{font-size:.76rem;font-weight:600}
-
-/* AUTH */
-.aw{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:38px 20px}
-.ac{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:34px;width:100%;max-width:395px}
-.al{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;background:linear-gradient(135deg,var(--vl),var(--cy));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.at{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;margin:17px 0 4px}
-.as2{font-size:.82rem;color:var(--t2);margin-bottom:22px}
-.adiv{display:flex;align-items:center;gap:10px;margin:15px 0;color:var(--t3);font-size:.77rem}
-.adiv::before,.adiv::after{content:'';flex:1;height:1px;background:var(--border)}
-.socb{width:100%;padding:10px;border-radius:var(--rs);background:var(--card);border:1px solid var(--border);color:var(--t);font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;margin-bottom:7px;display:flex;align-items:center;justify-content:center;gap:8px}
-.socb:hover{border-color:var(--bh);background:rgba(139,92,246,.07)}
-.fb{width:100%;padding:12px;border-radius:var(--rs);font-size:.9rem;font-weight:600;background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(139,92,246,.35);margin-top:4px}
-.fb:hover{box-shadow:0 6px 24px rgba(139,92,246,.5);transform:translateY(-1px)}
-.asw{text-align:center;font-size:.79rem;color:var(--t3);margin-top:17px}
-.asw a{color:var(--vl);cursor:pointer}
-
-/* PAYWALL MODAL */
-.ov{display:none;position:fixed;inset:0;z-index:1000;background:rgba(7,7,16,.9);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:18px;overflow-y:auto}
-.ov.open{display:flex;animation:fi .25s ease}
-.pwc{background:var(--bg2);border:1px solid rgba(139,92,246,.35);border-radius:20px;padding:30px 26px;width:100%;max-width:460px;box-shadow:0 0 80px rgba(139,92,246,.2),0 24px 64px rgba(0,0,0,.6);animation:sci .3s cubic-bezier(.34,1.56,.64,1);position:relative}
-.pwcl{position:absolute;top:13px;right:13px;background:none;border:none;color:var(--t3);font-size:1rem;cursor:pointer;padding:4px;transition:color .2s}
-.pwcl:hover{color:var(--t)}
-
-/* PLAN SELECTOR in modal */
-.plan-selector{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:20px}
-.ps-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--rs);padding:12px 10px;cursor:pointer;transition:all .2s;text-align:center;position:relative}
-.ps-item:hover{border-color:var(--bh)}
-.ps-item.selected{border-color:var(--v);background:rgba(139,92,246,.1)}
-.ps-item.selected::after{content:'✓';position:absolute;top:7px;right:9px;color:var(--vl);font-size:.75rem;font-weight:700}
-.ps-name{font-weight:700;font-size:.84rem;font-family:'Syne',sans-serif}
-.ps-price{font-size:1.2rem;font-weight:800;color:var(--vl);font-family:'Syne',sans-serif;margin:3px 0}
-.ps-period{font-size:.68rem;color:var(--t3)}
-.ps-badge{display:inline-block;background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;font-size:.63rem;font-weight:700;padding:1px 6px;border-radius:4px;margin-top:3px}
-
-.pwbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.27);padding:4px 11px;border-radius:100px;font-size:.72rem;color:var(--vl);margin-bottom:12px;font-weight:600}
-.pwt{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;line-height:1.2;margin-bottom:7px}
-.pws{font-size:.81rem;color:var(--t2);margin-bottom:16px;line-height:1.6}
-
-#card-el{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--rs);padding:13px 14px;margin-bottom:6px;min-height:46px;transition:border-color .2s}
-#card-el.StripeElement--focus{border-color:var(--v);box-shadow:0 0 0 3px rgba(139,92,246,.15)}
-#card-err{color:#f87171;font-size:.75rem;margin-bottom:8px;min-height:16px}
-.paybtn{width:100%;padding:13px;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;background:linear-gradient(135deg,var(--v),#6366f1);color:#fff;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(139,92,246,.4);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
-.paybtn:hover:not(:disabled){box-shadow:0 8px 32px rgba(139,92,246,.55);transform:translateY(-1px)}
-.paybtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.shine{position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);animation:sh 2.5s infinite}
-.psec{font-size:.69rem;color:var(--t3);text-align:center;margin-top:7px;display:flex;align-items:center;justify-content:center;gap:5px}
-
-.pwok{display:none;flex-direction:column;align-items:center;text-align:center;padding:8px 0;animation:fu .4s ease}
-.pwck{width:58px;height:58px;border-radius:50%;background:rgba(74,222,128,.1);border:2px solid var(--gr);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:12px;animation:pi .5s cubic-bezier(.34,1.56,.64,1)}
-.pwok h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:5px}
-.pwok p{font-size:.82rem;color:var(--t2)}
-.pw-plan-btn{display:flex;align-items:center;gap:14px;padding:13px 16px;border:1px solid var(--border);border-radius:var(--rs);cursor:pointer;transition:all .2s;background:rgba(255,255,255,.03)}
-.pw-plan-btn:hover{border-color:var(--bh);background:rgba(139,92,246,.08);transform:translateX(3px)}
-.pw-plan-btn.pop-plan{border-color:var(--v);background:rgba(139,92,246,.07)}
-
-/* TOAST */
-.toast{position:fixed;bottom:21px;right:21px;z-index:9999;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 15px;font-size:.82rem;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,0,0,.5);animation:fu .3s ease;max-width:285px}
-.toast.ok{border-color:rgba(74,222,128,.3)}.toast.err{border-color:rgba(248,113,113,.3)}
-
-/* ANIMATIONS */
 @keyframes fu{from{opacity:0;transform:translateY(17px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fi{from{opacity:0}to{opacity:1}}
-@keyframes sci{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-@keyframes pi{from{transform:scale(0)}to{transform:scale(1)}}
-@keyframes bnc{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
-@keyframes sh{0%,100%{left:-100%}50%{left:150%}}
 @keyframes pdot{0%,100%{opacity:1}50%{opacity:.4}}
 
-@media(max-width:900px){
-  nav{padding:0 14px}.nav-links .nl{display:none}
-  .sec{padding:54px 17px}.fr{grid-template-columns:1fr}
-  .dl{flex-direction:column}
-  .sb{width:100%;height:auto;position:static;flex-direction:row;flex-wrap:wrap;padding:9px;gap:3px;border-right:none;border-bottom:1px solid var(--border)}
-  .sbs{display:none}.sbi span:not(.sic){display:none}.sbi{width:auto;flex:0}
-  .dm{padding:18px 15px}.steps .step:not(:last-child)::after{display:none}
-  footer{flex-direction:column;text-align:center}.lf{flex-direction:column}
-  .plans-grid{grid-template-columns:repeat(2,1fr)}
-  .plan-selector{grid-template-columns:repeat(2,1fr)}
-  .comp-table{font-size:.76rem}
-}
-@media(max-width:500px){
-  .plans-grid{grid-template-columns:1fr}
-  h1{font-size:2rem}
+@media(max-width:768px){
+  nav{padding:0 16px}
+  .sec{padding:56px 18px}
+  .steps{grid-template-columns:1fr}
+  .step:not(:last-child)::after{display:none}
+  footer{flex-direction:column;text-align:center}
+  .pcard{padding:28px 22px}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo" onclick="go('home')">⚡ HookFlow AI</div>
-  <div class="nav-links">
-    <button class="nl" onclick="go('home')">Accueil</button>
-    <button class="nl" onclick="go('pricing')">Tarifs</button>
-    <button class="nl" onclick="go('login')">Connexion</button>
-    <button class="nb" onclick="go('signup')">Commencer →</button>
-  </div>
+  <div class="logo">⚡ HookFlow AI</div>
+  <a href="https://buy.stripe.com/4gM8wP6jN99xbDlb0Y3sI0e" target="_blank"><button class="nav-cta">Commencer — 19.99€/mois</button></a>
 </nav>
 
-<!-- ══ HOME ══ -->
-<div id="page-home" class="page active">
-
-  <section class="hero">
-    <div class="badge"><span class="dot"></span> IA v2.4 — Mis à jour cette semaine</div>
-    <h1>Crée des vidéos TikTok<br>qui vendent en <span class="acc">30 secondes</span></h1>
-    <p>Génère hooks viraux, scripts pro, séquences emails et pages de vente en 5 secondes. Sans expérience requise.</p>
-    <div class="hero-btns">
-      <button class="bp" onclick="openPaywall()">⚡ Commencer à 1€ maintenant</button>
-      <button class="bs" onclick="go('dashboard')">👁 Voir la démo</button>
-    </div>
-    <div class="stats">
-      <div><div class="stn">47K+</div><div class="stl">Créateurs actifs</div></div>
-      <div><div class="stn">2.3M</div><div class="stl">Scripts générés</div></div>
-      <div><div class="stn">340%</div><div class="stl">Taux de conversion</div></div>
-      <div><div class="stn">4.9★</div><div class="stl">Note utilisateurs</div></div>
-    </div>
-  </section>
-
-  <!-- LEAD CAPTURE -->
-  <div class="lead">
-    <div class="lead-in">
-      <div class="badge" style="margin-bottom:13px"><span class="dot"></span> Cadeau de bienvenue</div>
-      <h2>10 hooks TikTok offerts<br>par email 🎁</h2>
-      <p>Entre ton email et ta niche — reçois immédiatement 10 hooks viraux personnalisés. Gratuit.</p>
-      <div class="lf">
-        <input type="text" id="lead-email" placeholder="ton@email.com">
-        <input type="text" id="lead-niche" placeholder="Ta niche (ex: fitness, dropshipping...)">
-        <button class="lb" onclick="sendLeadEmail()">Recevoir mes hooks →</button>
-      </div>
-      <p style="font-size:.7rem;color:var(--t3);margin-top:9px">✓ Zéro spam · Désabonnement en 1 clic</p>
-    </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="badge"><span class="dot"></span> IA v2.4 — Mis à jour cette semaine</div>
+  <h1>Crée des vidéos TikTok<br>qui vendent en <span class="acc">30 secondes</span></h1>
+  <p>Génère des hooks viraux, scripts pro, emails et pages de vente en 5 secondes. Sans expérience requise.</p>
+  <a href="https://buy.stripe.com/4gM8wP6jN99xbDlb0Y3sI0e" target="_blank" class="cta-btn">⚡ Commencer maintenant — 19.99€/mois</a>
+  <div class="cta-sub">✓ Accès immédiat · ✓ Annule quand tu veux · ✓ Satisfait ou remboursé 14 jours</div>
+  <div class="stats">
+    <div><div class="stn">47K+</div><div class="stl">Créateurs actifs</div></div>
+    <div><div class="stn">2.3M</div><div class="stl">Scripts générés</div></div>
+    <div><div class="stn">340%</div><div class="stl">Taux de conversion</div></div>
+    <div><div class="stn">4.9★</div><div class="stl">Note utilisateurs</div></div>
   </div>
+</section>
 
-  <!-- FEATURES -->
+<!-- FEATURES -->
+<div class="sec">
+  <div class="sl">✦ Ce que tu obtiens</div>
+  <h2 class="st">6 outils IA pour<br>vendre sur TikTok</h2>
+  <p class="ss">Tout ce dont tu as besoin dans un seul abonnement. Résultats en 5 secondes.</p>
+  <div class="fg">
+    <div class="fc"><div class="fi" style="background:rgba(139,92,246,.14)">🪝</div><h3>Hooks TikTok Viraux</h3><p>10 hooks calibrés pour ta niche. Stoppe le scroll dans les 3 premières secondes.</p></div>
+    <div class="fc"><div class="fi" style="background:rgba(34,211,238,.1)">🎬</div><h3>Scripts Vidéo Pro</h3><p>Scripts 15–60s avec structure AIDA. Version face cam & faceless + CTA intégré.</p></div>
+    <div class="fc"><div class="fi" style="background:rgba(244,114,182,.1)">💎</div><h3>Offre Irrésistible</h3><p>Prix conseillé, 5 bonus à valeur perçue élevée et argumentaire béton.</p></div>
+    <div class="fc"><div class="fi" style="background:rgba(251,191,36,.1)">📧</div><h3>Séquence 5 Emails</h3><p>Du premier contact à l'achat — emails de vente & relance prêts à copier-coller.</p></div>
+    <div class="fc"><div class="fi" style="background:rgba(74,222,128,.1)">📄</div><h3>Page de Vente IA</h3><p>Headline, argumentaire, preuves sociales et CTAs — page complète optimisée.</p></div>
+    <div class="fc"><div class="fi" style="background:rgba(139,92,246,.14)">🔍</div><h3>Analyseur Contenu</h3><p>Score + 5 améliorations concrètes pour doubler ta rétention TikTok.</p></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
   <div class="sec">
-    <div class="sl">✦ Fonctionnalités</div>
-    <h2 class="st">Tout ce qu'il faut<br>pour vendre sur TikTok</h2>
-    <p class="ss">Six outils IA dans une seule plateforme. Résultats en 5 secondes.</p>
-    <div class="fg2">
-      <div class="fc"><div class="fi" style="background:rgba(139,92,246,.14)">🪝</div><h3>Hooks TikTok Viraux</h3><p>10 hooks calibrés pour ta niche. Stoppe le scroll dès les 3 premières secondes.</p><span class="tag tf">Gratuit</span></div>
-      <div class="fc"><div class="fi" style="background:rgba(34,211,238,.1)">🎬</div><h3>Scripts Vidéo Pro</h3><p>Scripts 15–60s avec structure AIDA. Version face cam & faceless + CTA intégré.</p><span class="tag tf">Gratuit</span></div>
-      <div class="fc"><div class="fi" style="background:rgba(244,114,182,.1)">💎</div><h3>Offre Irrésistible</h3><p>Prix conseillé, bonus à valeur perçue élevée et argumentaire béton.</p><span class="tag tp">Pro+</span></div>
-      <div class="fc"><div class="fi" style="background:rgba(251,191,36,.1)">📧</div><h3>Séquence 5 Emails</h3><p>Du premier contact à l'achat — emails de vente & relance prêts à l'emploi.</p><span class="tag tp">Pro+</span></div>
-      <div class="fc"><div class="fi" style="background:rgba(74,222,128,.1)">📄</div><h3>Page de Vente IA</h3><p>Headline, argumentaire, preuves sociales et CTAs — page complète optimisée.</p><span class="tag tp">Growth+</span></div>
-      <div class="fc"><div class="fi" style="background:rgba(139,92,246,.14)">🔍</div><h3>Analyseur Contenu</h3><p>Score + 5 améliorations concrètes pour doubler ta rétention TikTok.</p><span class="tag tp">Growth+</span></div>
+    <div class="sl">✦ Comment ça marche</div>
+    <h2 class="st">3 étapes vers<br>tes premières ventes</h2>
+    <div class="steps">
+      <div class="step"><div class="sn">01</div><h3>Décris ton produit</h3><p>Niche + description courte. 30 secondes.</p></div>
+      <div class="step"><div class="sn">02</div><h3>L'IA génère tout</h3><p>Hooks, scripts, emails en 5 secondes chrono.</p></div>
+      <div class="step"><div class="sn">03</div><h3>Publie et encaisse</h3><p>Copy-paste sur TikTok. Regarde les ventes arriver.</p></div>
     </div>
   </div>
-
-  <div style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-    <div class="sec">
-      <div class="sl">✦ Simple comme bonjour</div>
-      <h2 class="st">3 étapes vers<br>tes premières ventes</h2>
-      <div class="steps">
-        <div class="step"><div class="sn">01</div><h3>Décris ton produit</h3><p>Niche + description. 30 secondes.</p></div>
-        <div class="step"><div class="sn">02</div><h3>L'IA génère</h3><p>Hooks, scripts, emails en 5 secondes.</p></div>
-        <div class="step"><div class="sn">03</div><h3>Publie et encaisse</h3><p>Copy-paste et regarde les ventes arriver.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="sl">✦ Témoignages</div>
-    <h2 class="st">Ils vendent déjà<br>grâce à HookFlow</h2>
-    <div class="tg">
-      <div class="tc2"><div class="tst">★★★★★</div><p class="tt">"2 300€ la première semaine avec les scripts. Mes vidéos font 3x plus de vues."</p><div style="display:flex;align-items:center;gap:9px"><div class="tav" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4)">SL</div><div><div style="font-weight:600;font-size:.83rem">Sarah L.</div><div style="font-size:.73rem;color:var(--t3)">Formation fitness</div></div></div></div>
-      <div class="tc2"><div class="tst">★★★★★</div><p class="tt">"Débutant total, j'ai lancé mon ebook en 48h. 78 ventes la première semaine !"</p><div style="display:flex;align-items:center;gap:9px"><div class="tav" style="background:linear-gradient(135deg,#f472b6,#8b5cf6)">MK</div><div><div style="font-weight:600;font-size:.83rem">Marc K.</div><div style="font-size:.73rem;color:var(--t3)">Créateur / ebook</div></div></div></div>
-      <div class="tc2"><div class="tst">★★★★★</div><p class="tt">"300–500€/jour en dropshipping. Le contenu généré convertit vraiment."</p><div style="display:flex;align-items:center;gap:9px"><div class="tav" style="background:linear-gradient(135deg,#22d3ee,#4ade80)">AT</div><div><div style="font-weight:600;font-size:.83rem">Alex T.</div><div style="font-size:.73rem;color:var(--t3)">Dropshipper TikTok</div></div></div></div>
-    </div>
-  </div>
-
-  <div class="cta">
-    <div class="gr2"><div class="gr2i">Satisfait ou remboursé 14 jours</div></div>
-    <h2>Commence dès<br>aujourd'hui à 1€ ⚡</h2>
-    <p>Rejoins 47 000 créateurs qui vendent grâce à HookFlow AI.</p>
-    <button class="bp" style="font-size:1rem;padding:15px 30px" onclick="openPaywall()">⚡ Démarrer maintenant — 1€</button>
-  </div>
-  <footer><div><div class="flo">⚡ HookFlow AI</div><p style="margin-top:3px">© 2025 HookFlow AI. Tous droits réservés.</p></div><div class="flinks"><a>Confidentialité</a><a>CGU</a><a onclick="go('pricing')">Tarifs</a></div></footer>
 </div>
 
-<!-- ══ PRICING ══ -->
-<div id="page-pricing" class="page">
-  <div class="sec" style="text-align:center;max-width:1100px">
-    <div class="sl" style="display:inline-block">✦ Tarifs</div>
-    <h2 class="st" style="margin-top:8px">Choisis ton forfait</h2>
-    <p class="ss" style="margin:0 auto 8px">Commence à 1€. Scale quand tu veux. Annule à tout moment.</p>
+<!-- TESTIMONIALS -->
+<div class="sec">
+  <div class="sl">✦ Témoignages</div>
+  <h2 class="st">Ils vendent déjà<br>grâce à HookFlow</h2>
+  <div class="tg">
+    <div class="tc"><div class="ts">★★★★★</div><p class="tt">"2 300€ la première semaine avec les scripts. Mes vidéos font 3x plus de vues qu'avant."</p><div style="display:flex;align-items:center;gap:9px"><div class="tav" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4)">SL</div><div><div style="font-weight:600;font-size:.85rem">Sarah L.</div><div style="font-size:.74rem;color:var(--t3)">Formation fitness</div></div></div></div>
+    <div class="tc"><div class="ts">★★★★★</div><p class="tt">"Débutant total, j'ai lancé mon ebook en 48h. 78 ventes la première semaine !"</p><div style="display:flex;align-items:center;gap:9px"><div class="tav" style="background:linear-gradient(135deg,#f472b6,#8b5cf6)">MK</div><div><div style="font-weight:600;font-size:.85rem">Marc K.</div><div style="font-size:.74rem;color:var(--t3)">Créateur / ebook</div></div></div></div>
+    <div class="tc"><div class="ts">★★★★★</div><p class="tt">"300–500€/jour en dropshipping. Le contenu généré convertit vraiment."</p><div style="display:flex;align-items:center;gap:9px"><div class="tav" style="background:linear-gradient(135deg,#22d3ee,#4ade80)">AT</div><div><div style="font-weight:600;font-size:.85rem">Alex T.</div><div style="font-size:.74rem;color:var(--t3)">Dropshipper TikTok</div></div></div></div>
+  </div>
+</div>
 
-    <!-- 4 PLANS -->
-    <div class="plans-grid">
-
-      <!-- STARTER -->
-      <div class="plan">
-        <div class="plan-icon">🚀</div>
-        <div class="plan-name">Starter</div>
-        <div class="plan-tagline">Pour tester et démarrer</div>
-        <div class="plan-price"><span class="eur">€</span><span class="amt">1</span></div>
-        <div class="plan-period">accès 24h · paiement unique</div>
-        <ul class="plan-feats">
-          <li>Accès complet pendant 24h</li>
-          <li>Hooks + scripts illimités</li>
-          <li>Générateur d'offre basique</li>
-          <li class="no">Séquence emails</li>
-          <li class="no">Page de vente</li>
-          <li class="no">Analyseur contenu</li>
-          <li class="no">Support prioritaire</li>
+<!-- PRICING -->
+<div style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="sec" style="text-align:center">
+    <div class="sl" style="display:inline-block">✦ Tarif</div>
+    <h2 class="st" style="margin-top:8px">Un seul forfait.<br>Tout inclus.</h2>
+    <p class="ss" style="margin:0 auto">Accès illimité à tous les outils. Annule quand tu veux.</p>
+    <div class="pricing-wrap">
+      <div class="pcard">
+        <div class="pbadge">⚡ ACCÈS COMPLET</div>
+        <div class="pname">HookFlow AI Pro</div>
+        <div class="pdesc">Tous les outils IA débloqués — sans limite</div>
+        <div class="pprice"><sup>€</sup>19<span style="font-size:1.5rem">.99</span></div>
+        <div class="pper">/mois · sans engagement · annule quand tu veux</div>
+        <ul class="pfeats">
+          <li>Générateur de hooks TikTok viraux</li>
+          <li>Scripts vidéo face cam & faceless</li>
+          <li>Générateur d'offre marketing</li>
+          <li>Séquence de 5 emails de vente</li>
+          <li>Générateur de page de vente complète</li>
+          <li>Analyseur de contenu TikTok</li>
+          <li>Générations illimitées 24h/24</li>
         </ul>
-        <button class="plan-cta outline" onclick="openPaywall('starter')">Démarrer à 1€ →</button>
+        <a href="https://buy.stripe.com/4gM8wP6jN99xbDlb0Y3sI0e" target="_blank" class="pcta">⚡ Commencer maintenant →</a>
+        <div class="pguarantee">🛡️ Satisfait ou remboursé 14 jours · Paiement sécurisé Stripe</div>
       </div>
-
-      <!-- PRO -->
-      <div class="plan pop">
-        <div class="pbadge">⚡ PLUS POPULAIRE</div>
-        <div class="plan-icon">💎</div>
-        <div class="plan-name">Pro</div>
-        <div class="plan-tagline">Pour créateurs sérieux</div>
-        <div class="plan-price highlight"><span class="eur">€</span><span class="amt">9</span></div>
-        <div class="plan-period">/mois · puis 19€/mois après 3 mois</div>
-        <ul class="plan-feats">
-          <li>Hooks &amp; scripts illimités</li>
-          <li>Générateur d'offre avancé</li>
-          <li>Séquence 5 emails</li>
-          <li class="no">Page de vente IA</li>
-          <li class="no">Analyseur contenu</li>
-          <li class="no">Multi-niche</li>
-          <li class="no">Support prioritaire</li>
-        </ul>
-        <button class="plan-cta primary" onclick="openPaywall('pro')">Commencer à 9€ →</button>
-      </div>
-
-      <!-- GROWTH -->
-      <div class="plan">
-        <div class="plan-icon">📈</div>
-        <div class="plan-name">Growth</div>
-        <div class="plan-tagline">Pour scaler son business</div>
-        <div class="plan-price"><span class="eur">€</span><span class="amt">19</span></div>
-        <div class="plan-period">/mois · tout inclus</div>
-        <ul class="plan-feats">
-          <li>Tout du plan Pro</li>
-          <li>Page de vente IA complète</li>
-          <li>Analyseur contenu TikTok</li>
-          <li>Multi-niche illimité</li>
-          <li class="no">Comptes multi-utilisateurs</li>
-          <li class="no">Export en masse</li>
-          <li class="no">Manager dédié</li>
-        </ul>
-        <button class="plan-cta outline" onclick="openPaywall('growth')">Commencer à 19€ →</button>
-      </div>
-
-      <!-- AGENCY -->
-      <div class="plan">
-        <div class="plan-icon">🏢</div>
-        <div class="plan-name">Agence</div>
-        <div class="plan-tagline">Pour les équipes</div>
-        <div class="plan-price"><span class="eur">€</span><span class="amt">49</span></div>
-        <div class="plan-period">/mois · jusqu'à 10 utilisateurs</div>
-        <ul class="plan-feats">
-          <li>Tout du plan Growth</li>
-          <li>10 comptes utilisateurs</li>
-          <li>Export en masse CSV/PDF</li>
-          <li>Intégrations Zapier</li>
-          <li>Tableau de bord agence</li>
-          <li>Support prioritaire 24/7</li>
-          <li>Manager de compte dédié</li>
-        </ul>
-        <button class="plan-cta outline" onclick="openPaywall('agency')">Commencer à 49€ →</button>
-      </div>
-
     </div>
-
-    <!-- COMPARISON TABLE -->
-    <div style="margin-top:64px;overflow-x:auto">
-      <div class="sl" style="text-align:left">✦ Comparaison détaillée</div>
-      <table class="comp-table">
-        <thead>
-          <tr>
-            <th>Fonctionnalité</th>
-            <th class="plan-head">Starter<br><span style="font-weight:400;color:var(--t3)">1€</span></th>
-            <th class="plan-head pop-col" style="color:var(--vl)">Pro ⚡<br><span style="font-weight:400">9€/mois</span></th>
-            <th class="plan-head">Growth<br><span style="font-weight:400;color:var(--t3)">19€/mois</span></th>
-            <th class="plan-head">Agence<br><span style="font-weight:400;color:var(--t3)">49€/mois</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Hooks TikTok</td><td class="yes" style="text-align:center">✓ 24h</td><td class="yes pop-col" style="text-align:center">✓ Illimité</td><td class="yes" style="text-align:center">✓ Illimité</td><td class="yes" style="text-align:center">✓ Illimité</td></tr>
-          <tr><td>Scripts vidéo</td><td class="yes" style="text-align:center">✓ 24h</td><td class="yes pop-col" style="text-align:center">✓ Illimité</td><td class="yes" style="text-align:center">✓ Illimité</td><td class="yes" style="text-align:center">✓ Illimité</td></tr>
-          <tr><td>Générateur d'offre</td><td class="hi" style="text-align:center">Basique</td><td class="hi pop-col" style="text-align:center">Avancé</td><td class="hi" style="text-align:center">Avancé</td><td class="hi" style="text-align:center">Avancé</td></tr>
-          <tr><td>Séquence 5 emails</td><td class="no2" style="text-align:center">✕</td><td class="yes pop-col" style="text-align:center">✓</td><td class="yes" style="text-align:center">✓</td><td class="yes" style="text-align:center">✓</td></tr>
-          <tr><td>Page de vente IA</td><td class="no2" style="text-align:center">✕</td><td class="no2 pop-col" style="text-align:center">✕</td><td class="yes" style="text-align:center">✓</td><td class="yes" style="text-align:center">✓</td></tr>
-          <tr><td>Analyseur contenu</td><td class="no2" style="text-align:center">✕</td><td class="no2 pop-col" style="text-align:center">✕</td><td class="yes" style="text-align:center">✓</td><td class="yes" style="text-align:center">✓</td></tr>
-          <tr><td>Niches simultanées</td><td class="hi" style="text-align:center">1</td><td class="hi pop-col" style="text-align:center">3</td><td class="hi" style="text-align:center">Illimité</td><td class="hi" style="text-align:center">Illimité</td></tr>
-          <tr><td>Comptes utilisateurs</td><td class="hi" style="text-align:center">1</td><td class="hi pop-col" style="text-align:center">1</td><td class="hi" style="text-align:center">1</td><td class="hi" style="text-align:center">10</td></tr>
-          <tr><td>Export en masse</td><td class="no2" style="text-align:center">✕</td><td class="no2 pop-col" style="text-align:center">✕</td><td class="no2" style="text-align:center">✕</td><td class="yes" style="text-align:center">✓</td></tr>
-          <tr><td>Intégrations Zapier</td><td class="no2" style="text-align:center">✕</td><td class="no2 pop-col" style="text-align:center">✕</td><td class="no2" style="text-align:center">✕</td><td class="yes" style="text-align:center">✓</td></tr>
-          <tr><td>Support</td><td class="hi" style="text-align:center">Email</td><td class="hi pop-col" style="text-align:center">Prioritaire</td><td class="hi" style="text-align:center">Prioritaire</td><td class="hi" style="text-align:center">Manager dédié</td></tr>
-          <tr><td>Garantie remboursement</td><td class="yes" style="text-align:center">14 jours</td><td class="yes pop-col" style="text-align:center">14 jours</td><td class="yes" style="text-align:center">14 jours</td><td class="yes" style="text-align:center">14 jours</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p style="color:var(--t3);font-size:.74rem;margin-top:26px">✓ Paiement Stripe sécurisé · ✓ Remboursement 14 jours · ✓ Sans engagement</p>
-  </div>
-  <footer><div><div class="flo">⚡ HookFlow AI</div><p style="margin-top:3px">© 2025 HookFlow AI.</p></div><div class="flinks"><a onclick="go('home')">Accueil</a></div></footer>
-</div>
-
-<!-- ══ LOGIN ══ -->
-<div id="page-login" class="page">
-  <div class="aw"><div class="ac">
-    <div class="al">⚡ HookFlow AI</div>
-    <h2 class="at">Bon retour 👋</h2>
-    <p class="as2">Connecte-toi pour accéder à tes outils.</p>
-    <button class="socb"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Continuer avec Google</button>
-    <div class="adiv">ou</div>
-    <div class="fgg"><label>Email</label><input type="text" id="login-email" placeholder="toi@exemple.com"></div>
-    <div class="fgg"><label>Mot de passe</label><input type="text" placeholder="••••••••"></div>
-    <button class="fb" onclick="doLogin()">Se connecter →</button>
-    <div class="asw">Pas de compte ? <a onclick="go('signup')">Créer un compte gratuit</a></div>
-  </div></div>
-</div>
-
-<!-- ══ SIGNUP ══ -->
-<div id="page-signup" class="page">
-  <div class="aw"><div class="ac">
-    <div class="al">⚡ HookFlow AI</div>
-    <h2 class="at">Lance-toi 🚀</h2>
-    <p class="as2">Compte gratuit en 30 secondes. Premier accès à 1€.</p>
-    <button class="socb"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>S'inscrire avec Google</button>
-    <div class="adiv">ou</div>
-    <div class="fr"><div class="fgg" style="margin:0"><label>Prénom</label><input type="text" id="su-name" placeholder="Alex"></div><div class="fgg" style="margin:0"><label>Nom</label><input type="text" placeholder="Dupont"></div></div>
-    <div class="fgg" style="margin-top:12px"><label>Email</label><input type="text" id="su-email" placeholder="toi@exemple.com"></div>
-    <div class="fgg"><label>Mot de passe</label><input type="text" placeholder="Minimum 8 caractères"></div>
-    <button class="fb" onclick="doSignup()">Créer mon compte →</button>
-    <p style="font-size:.7rem;color:var(--t3);text-align:center;margin-top:9px">En t'inscrivant tu acceptes nos CGU.</p>
-    <div class="asw">Déjà un compte ? <a onclick="go('login')">Se connecter</a></div>
-  </div></div>
-</div>
-
-<!-- ══ DASHBOARD ══ -->
-<div id="page-dashboard" class="page">
-  <div class="dl">
-    <aside class="sb">
-      <button class="sbi active" onclick="sw('overview',this)"><span class="sic">🏠</span><span>Accueil</span></button>
-      <div class="sbs">Outils IA</div>
-      <button class="sbi" onclick="sw('hooks',this)"><span class="sic">🪝</span><span>Hooks TikTok</span></button>
-      <button class="sbi" onclick="sw('scripts',this)"><span class="sic">🎬</span><span>Scripts Vidéo</span></button>
-      <button class="sbi" onclick="sw('offer',this)"><span class="sic">💎</span><span>Offre Marketing</span></button>
-      <button class="sbi" onclick="sw('emails',this)"><span class="sic">📧</span><span>Emails</span></button>
-      <button class="sbi" onclick="sw('salespage',this)"><span class="sic">📄</span><span>Page de Vente</span></button>
-      <button class="sbi" onclick="sw('analyzer',this)"><span class="sic">🔍</span><span>Analyseur</span></button>
-      <div class="sbs">Compte</div>
-      <button class="sbi" onclick="go('pricing')"><span class="sic">⭐</span><span>Upgrader</span></button>
-      <button class="sbi" onclick="go('home')"><span class="sic">←</span><span>Déconnexion</span></button>
-    </aside>
-    <main class="dm">
-
-      <!-- OVERVIEW -->
-      <div class="tool active" id="tool-overview">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
-          <div class="dtt">Bonjour 👋</div>
-          <span class="user-plan" id="plan-badge-display">free</span>
-        </div>
-        <div class="dsb">Que veux-tu créer aujourd'hui ?</div>
-        <div class="upbox">
-          <div><strong>🚀 Passe Pro à 9€/mois</strong><p>Scripts illimités, emails et bien plus.</p></div>
-          <button class="bp" style="white-space:nowrap;padding:9px 16px;font-size:.83rem" onclick="openPaywall('pro')">Upgrader →</button>
-        </div>
-        <div class="uw">
-          <div class="ur"><span>Générations aujourd'hui</span><span style="color:var(--vl)" id="usage-count">3 / 5</span></div>
-          <div class="ub"><div class="uf" id="usage-bar" style="width:60%"></div></div>
-          <p style="font-size:.71rem;color:var(--t3);margin-top:4px">2 générations restantes (plan gratuit)</p>
-        </div>
-        <div class="qg">
-          <div class="qi" onclick="sw('hooks',null)"><div class="qico">🪝</div><div class="qn">Hooks</div></div>
-          <div class="qi" onclick="sw('scripts',null)"><div class="qico">🎬</div><div class="qn">Scripts</div></div>
-          <div class="qi" onclick="sw('offer',null)"><div class="qico">💎</div><div class="qn">Offre</div></div>
-          <div class="qi" onclick="sw('emails',null)"><div class="qico">📧</div><div class="qn">Emails</div></div>
-          <div class="qi" onclick="sw('salespage',null)"><div class="qico">📄</div><div class="qn">Page vente</div></div>
-          <div class="qi" onclick="sw('analyzer',null)"><div class="qico">🔍</div><div class="qn">Analyser</div></div>
-        </div>
-        <div class="tcard" style="background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(34,211,238,.04));border-color:rgba(139,92,246,.17)">
-          <div class="tct">💡 Astuce du jour</div>
-          <p style="font-size:.84rem;color:var(--t2);line-height:1.7;margin-top:5px">Les hooks qui commencent par <strong>"POV :"</strong> génèrent <strong style="color:var(--vl)">3.2x plus de rétention</strong> dans les 3 premières secondes. Essaie maintenant →</p>
-        </div>
-      </div>
-
-      <!-- HOOKS -->
-      <div class="tool" id="tool-hooks">
-        <div class="dtt">🪝 Hooks TikTok</div><div class="dsb">10 hooks viraux qui stoppent le scroll.</div>
-        <div class="tcard">
-          <div class="fr"><div class="fgg" style="margin:0"><label>Niche</label><input type="text" id="h-niche" placeholder="ex: perte de poids, dropshipping..."></div><div class="fgg" style="margin:0"><label>Produit</label><input type="text" id="h-prod" placeholder="ex: formation, ebook, coaching..."></div></div>
-          <div class="fgg"><label>Transformation promise</label><input type="text" id="h-result" placeholder="ex: perdre 5kg en 30 jours, gagner 1000€/mois..."></div>
-          <div class="fgg"><label>Audience cible</label><input type="text" id="h-audience" placeholder="ex: débutants 18-35 ans, mamans actives..."></div>
-          <button class="gb" id="btn-h" onclick="gate('hooks')">⚡ Générer 10 hooks viraux</button>
-          <div class="rb" id="res-hooks"><div class="rh"><span class="rt">🪝 Tes 10 Hooks Viraux</span><button class="cb" onclick="cp('hooks')">📋 Copier</button></div><div class="rc" id="rc-hooks"></div></div>
-        </div>
-      </div>
-
-      <!-- SCRIPTS -->
-      <div class="tool" id="tool-scripts">
-        <div class="dtt">🎬 Scripts Vidéo</div><div class="dsb">Scripts 15–60s face cam & faceless avec CTA.</div>
-        <div class="tcard">
-          <div class="fr"><div class="fgg" style="margin:0"><label>Produit / service</label><input type="text" id="s-prod" placeholder="ex: ebook dropshipping"></div><div class="fgg" style="margin:0"><label>Format</label><select id="s-fmt"><option value="face cam">Face Cam</option><option value="faceless">Faceless</option><option value="les deux">Les deux</option></select></div></div>
-          <div class="fr"><div class="fgg" style="margin:0"><label>Durée</label><select id="s-dur"><option value="15">15s</option><option value="30" selected>30s</option><option value="60">60s</option></select></div><div class="fgg" style="margin:0"><label>CTA</label><input type="text" id="s-cta" placeholder="ex: Lien en bio, DM INFO..."></div></div>
-          <div class="fgg"><label>Bénéfice principal</label><input type="text" id="s-benefit" placeholder="ex: générer 500€/semaine sans stock..."></div>
-          <button class="gb" id="btn-s" onclick="gate('scripts')">⚡ Générer mon script</button>
-          <div class="rb" id="res-scripts"><div class="rh"><span class="rt">🎬 Ton Script</span><button class="cb" onclick="cp('scripts')">📋 Copier</button></div><div class="rc" id="rc-scripts"></div></div>
-        </div>
-      </div>
-
-      <!-- OFFER -->
-      <div class="tool" id="tool-offer">
-        <div class="dtt">💎 Offre Marketing</div><div class="dsb">Prix, bonus et argumentaire irrésistible.</div>
-        <div class="tcard">
-          <div class="fr"><div class="fgg" style="margin:0"><label>Nom du produit</label><input type="text" id="o-name" placeholder="ex: Formation TikTok Millionnaire"></div><div class="fgg" style="margin:0"><label>Type</label><select id="o-type"><option>Formation en ligne</option><option>Ebook / PDF</option><option>Coaching 1:1</option><option>Produit physique</option></select></div></div>
-          <div class="fr"><div class="fgg" style="margin:0"><label>Prix actuel (€)</label><input type="text" id="o-price" placeholder="ex: 47"></div><div class="fgg" style="margin:0"><label>Niche</label><input type="text" id="o-niche" placeholder="ex: marketing digital"></div></div>
-          <div class="fgg"><label>Contenu inclus</label><textarea id="o-content" placeholder="Décris ce que reçoit le client..."></textarea></div>
-          <button class="gb" id="btn-o" onclick="gate('offer')">⚡ Créer mon offre irrésistible</button>
-          <div class="rb" id="res-offer"><div class="rh"><span class="rt">💎 Ton Offre</span><button class="cb" onclick="cp('offer')">📋 Copier</button></div><div class="rc" id="rc-offer"></div></div>
-        </div>
-      </div>
-
-      <!-- EMAILS -->
-      <div class="tool" id="tool-emails">
-        <div class="dtt">📧 Séquence Emails</div><div class="dsb">5 emails de vente & relance prêts à l'emploi.</div>
-        <div class="tcard">
-          <div class="fr"><div class="fgg" style="margin:0"><label>Produit</label><input type="text" id="e-prod" placeholder="ex: Formation TikTok"></div><div class="fgg" style="margin:0"><label>Prix</label><input type="text" id="e-price" placeholder="ex: 97€"></div></div>
-          <div class="fr"><div class="fgg" style="margin:0"><label>Transformation</label><input type="text" id="e-transfo" placeholder="ex: générer 1000€/mois"></div><div class="fgg" style="margin:0"><label>Expéditeur</label><input type="text" id="e-brand" placeholder="ex: Alex de HookFlow"></div></div>
-          <button class="gb" id="btn-e" onclick="gate('emails')">⚡ Générer mes 5 emails</button>
-          <div class="rb" id="res-emails"><div class="rh"><span class="rt">📧 Séquence 5 Emails</span><button class="cb" onclick="cp('emails')">📋 Copier</button></div><div class="rc" id="rc-emails"></div></div>
-        </div>
-      </div>
-
-      <!-- SALES PAGE -->
-      <div class="tool" id="tool-salespage">
-        <div class="dtt">📄 Page de Vente</div><div class="dsb">Structure complète qui convertit.</div>
-        <div class="tcard">
-          <div class="fr"><div class="fgg" style="margin:0"><label>Nom du produit</label><input type="text" id="sp-name" placeholder="ex: TikTok Cash System"></div><div class="fgg" style="margin:0"><label>Prix</label><input type="text" id="sp-price" placeholder="ex: 97€"></div></div>
-          <div class="fgg"><label>Promesse principale</label><input type="text" id="sp-promise" placeholder="ex: Générer 1000€/mois en 30 jours"></div>
-          <div class="fgg"><label>Pour qui ?</label><textarea id="sp-for" placeholder="Décris ton client idéal..."></textarea></div>
-          <div class="fgg"><label>Modules / bonus inclus</label><textarea id="sp-modules" placeholder="Liste ce que reçoit le client..."></textarea></div>
-          <button class="gb" id="btn-sp" onclick="gate('salespage')">⚡ Générer ma page de vente</button>
-          <div class="rb" id="res-salespage"><div class="rh"><span class="rt">📄 Ta Page de Vente</span><button class="cb" onclick="cp('salespage')">📋 Copier</button></div><div class="rc" id="rc-salespage"></div></div>
-        </div>
-      </div>
-
-      <!-- ANALYZER -->
-      <div class="tool" id="tool-analyzer">
-        <div class="dtt">🔍 Analyseur Contenu</div><div class="dsb">Score + 5 améliorations pour doubler ta rétention.</div>
-        <div class="tcard">
-          <div class="fgg"><label>Décris ta vidéo TikTok</label><textarea id="a-desc" style="min-height:90px" placeholder="Ex: Ma vidéo commence par 'Tu veux gagner de l'argent ?' puis je présente mon produit 20s..."></textarea></div>
-          <div class="fr"><div class="fgg" style="margin:0"><label>Niche</label><input type="text" id="a-niche" placeholder="ex: dropshipping"></div><div class="fgg" style="margin:0"><label>Objectif</label><select id="a-goal"><option>Vendre un produit</option><option>Générer des abonnés</option><option>Driver du trafic</option><option>Notoriété</option></select></div></div>
-          <button class="gb" id="btn-a" onclick="gate('analyzer')">⚡ Analyser mon contenu</button>
-          <div class="rb" id="res-analyzer"><div class="rh"><span class="rt">🔍 Analyse & Recommandations</span><button class="cb" onclick="cp('analyzer')">📋 Copier</button></div><div class="rc" id="rc-analyzer"></div></div>
-        </div>
-      </div>
-
-    </main>
   </div>
 </div>
 
-<!-- ══ PAYWALL MODAL ══ -->
-<div class="ov" id="paywall">
-  <div class="pwc">
-    <button class="pwcl" onclick="closePW()">✕</button>
-    <div class="pwbadge">🔒 Paiement sécurisé · Stripe</div>
-    <h2 class="pwt">Choisis ton forfait</h2>
-    <p class="pws">Clique sur ton forfait — tu es redirigé vers Stripe pour payer en sécurité.</p>
-
-    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
-
-      <div class="pw-plan-btn" onclick="payNow('starter')">
-        <div style="flex:1">
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem">🚀 Starter — Accès 24h</div>
-          <div style="font-size:.78rem;color:var(--t2);margin-top:2px">Hooks + scripts illimités pendant 24h</div>
-        </div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--vl)">1€</div>
-      </div>
-
-      <div class="pw-plan-btn pop-plan" onclick="payNow('pro')">
-        <div style="flex:1">
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem">💎 Pro ⚡ — Le plus populaire</div>
-          <div style="font-size:.78rem;color:var(--t2);margin-top:2px">Hooks + scripts + emails illimités</div>
-        </div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--vl)">9€/mois</div>
-      </div>
-
-      <div class="pw-plan-btn" onclick="payNow('growth')">
-        <div style="flex:1">
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem">📈 Growth — Tout inclus</div>
-          <div style="font-size:.78rem;color:var(--t2);margin-top:2px">Pro + page de vente + analyseur</div>
-        </div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--vl)">19€/mois</div>
-      </div>
-
-      <div class="pw-plan-btn" onclick="payNow('agency')">
-        <div style="flex:1">
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem">🏢 Agence — 10 comptes</div>
-          <div style="font-size:.78rem;color:var(--t2);margin-top:2px">Tout Growth + équipe + Zapier</div>
-        </div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--vl)">49€/mois</div>
-      </div>
-
-    </div>
-    <div class="psec">🔒 Paiement 100% sécurisé via Stripe · Remboursement 14 jours</div>
-  </div>
+<!-- CTA FINAL -->
+<div class="cta-sec">
+  <h2>Prêt à vendre<br>dès aujourd'hui ? ⚡</h2>
+  <p>Rejoins 47 000 créateurs qui automatisent leur business TikTok avec l'IA.</p>
+  <a href="https://buy.stripe.com/4gM8wP6jN99xbDlb0Y3sI0e" target="_blank" class="cta-btn" style="display:inline-flex">⚡ Commencer maintenant — 19.99€/mois</a>
+  <div style="font-size:.75rem;color:var(--t3);margin-top:12px">✓ Accès immédiat · ✓ Annule quand tu veux · ✓ Remboursement 14 jours</div>
 </div>
 
-<div id="tc"></div>
+<footer>
+  <div><div class="flo">⚡ HookFlow AI</div><p style="margin-top:3px">© 2025 HookFlow AI. Tous droits réservés.</p></div>
+  <p>Paiement sécurisé via Stripe</p>
+</footer>
 
 <script>
-// ═══════════ CONFIG — REMPLACE CES 4 LIENS ═══════════
-// Va sur dashboard.stripe.com → Payment Links → New
-// Crée un produit pour chaque forfait et colle le lien ici
-const PAYMENT_LINKS = {
-  starter: 'https://buy.stripe.com/cNi6oHgYrdpNePxeda3sI0a',
-  pro:     'https://buy.stripe.com/9B6dR9cIb2L922L7OM3sI09',
-  growth:  'https://buy.stripe.com/00weVd4bF0D1azh1qo3sI08',
-  agency:  'https://buy.stripe.com/8x24gzfUngBZazh6KI3sI06'
-};
-
-// EmailJS (emailjs.com — gratuit 200 emails/mois)
-const EJS_SVC  = 'YOUR_SERVICE_ID';
-const EJS_TPL  = 'YOUR_TEMPLATE_ID';
-const EJS_KEY  = 'YOUR_PUBLIC_KEY';
-const MY_EMAIL = 'ton@email.com';
-
-// Permissions par plan
-const PLAN_PERMS = {
-  free:    ['hooks','scripts'],
-  starter: ['hooks','scripts','offer'],
-  pro:     ['hooks','scripts','offer','emails'],
-  growth:  ['hooks','scripts','offer','emails','salespage','analyzer'],
-  agency:  ['hooks','scripts','offer','emails','salespage','analyzer']
-};
-const PLAN_LABELS = {
-  free:'Plan Gratuit', starter:'Starter 24h', pro:'Pro ⚡', growth:'Growth 📈', agency:'Agence 🏢'
-};
-
-let userPlan = 'free';
-
-window.addEventListener('load',()=>{
-  if(EJS_KEY!=='YOUR_PUBLIC_KEY'){try{emailjs.init(EJS_KEY);}catch(e){}}
-  updatePlanBadge();
-  // Retour après paiement Stripe
-  const params = new URLSearchParams(window.location.search);
-  if(params.get('payment')==='success'){
-    const p = params.get('plan') || 'starter';
-    activatePlan(p);
-    toast('🎉 Paiement confirmé — bienvenue en '+PLAN_LABELS[p]+' !','ok');
-    go('dashboard');
-  }
-});
-
-// ═══════════ NAV ═══════════
-function go(p){ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active')); document.getElementById('page-'+p).classList.add('active'); window.scrollTo(0,0); }
-function sw(n,btn){ document.querySelectorAll('.tool').forEach(t=>t.classList.remove('active')); document.querySelectorAll('.sbi').forEach(b=>b.classList.remove('active')); document.getElementById('tool-'+n).classList.add('active'); if(btn)btn.classList.add('active'); }
-
-// ═══════════ AUTH ═══════════
-function doLogin(){ const e=v('login-email'); if(!e){toast('Entre ton email 📧','err');return;} toast('✅ Connexion réussie !','ok'); setTimeout(()=>go('dashboard'),700); }
-function doSignup(){
-  const e=v('su-email'),n=v('su-name');
-  if(!e||!n){toast('Remplis tous les champs','err');return;}
-  sendMail(e,`Bienvenue sur HookFlow AI, ${n} ! ⚡`,`Salut ${n} ! 🎉\n\nBienvenue sur HookFlow AI.\nTon compte est créé !\n\nPour accéder à tes outils, choisis ton forfait :\n→ Starter 1€ : ${PAYMENT_LINKS.starter}\n→ Pro 9€/mois : ${PAYMENT_LINKS.pro}\n→ Growth 19€/mois : ${PAYMENT_LINKS.growth}\n→ Agence 49€/mois : ${PAYMENT_LINKS.agency}\n\nL'équipe HookFlow ⚡`);
-  sendMail(MY_EMAIL,`🎉 Nouvel inscrit : ${e}`,`Nom : ${n}\nEmail : ${e}`);
-  toast('✅ Compte créé ! Bienvenue '+n+' 🎉','ok');
-  setTimeout(()=>openPaywall(),900);
-}
-
-// ═══════════ PAYWALL ═══════════
-function openPaywall(){ document.getElementById('paywall').classList.add('open'); }
-function closePW(){ document.getElementById('paywall').classList.remove('open'); }
-
-function payNow(plan){
-  const link = PAYMENT_LINKS[plan];
-  if(!link){ toast('Lien indisponible','err'); return; }
-  window.open(link, '_blank');
-  toast('🔒 Redirection vers Stripe...','ok');
-}
-
-function activatePlan(plan){
-  userPlan = plan;
-  updatePlanBadge();
-  localStorage.setItem('hf_plan', plan);
-}
-
-function updatePlanBadge(){
-  const el=document.getElementById('plan-badge-display');
-  if(!el) return;
-  el.className='user-plan '+userPlan;
-  el.textContent=PLAN_LABELS[userPlan]||userPlan;
-}
-
-// Récupère le plan sauvegardé
-const savedPlan = localStorage.getItem('hf_plan');
-if(savedPlan) userPlan = savedPlan;
-
-// ═══════════ GENERATION GATE ═══════════
-function gate(tool){
-  const perms=PLAN_PERMS[userPlan]||[];
-  if(!perms.includes(tool)){
-    // Trouver le plan minimum requis
-    const minPlan=Object.entries(PLAN_PERMS).find(([,tools])=>tools.includes(tool));
-    toast('🔒 Cet outil requiert le plan '+PLAN_LABELS[minPlan?.[0]||'pro']+' minimum','err');
-    setTimeout(()=>openPaywall(minPlan?.[0]||'pro'),500);
-    return;
-  }
-  gen(tool);
-}
-
-// ═══════════ GENERATOR ═══════════
-function gen(tool){
-  const cfg={
-    hooks:{btn:'btn-h',res:'res-hooks',rc:'rc-hooks',fn:gHooks},
-    scripts:{btn:'btn-s',res:'res-scripts',rc:'rc-scripts',fn:gScripts},
-    offer:{btn:'btn-o',res:'res-offer',rc:'rc-offer',fn:gOffer},
-    emails:{btn:'btn-e',res:'res-emails',rc:'rc-emails',fn:gEmails},
-    salespage:{btn:'btn-sp',res:'res-salespage',rc:'rc-salespage',fn:gSalesPage},
-    analyzer:{btn:'btn-a',res:'res-analyzer',rc:'rc-analyzer',fn:gAnalyzer}
-  };
-  const c=cfg[tool]; if(!c)return;
-  const btn=document.getElementById(c.btn), res=document.getElementById(c.res), rc=document.getElementById(c.rc);
-  btn.disabled=true;
-  btn.innerHTML='<div class="dots"><span></span><span></span><span></span></div> Génération en cours...';
-  res.classList.add('show');
-  rc.innerHTML='<span style="color:var(--t3);font-style:italic">⚡ Analyse de tes inputs et rédaction en cours...</span>';
-  setTimeout(()=>{ rc.innerHTML=fmt(c.fn()); btn.disabled=false; btn.innerHTML='⚡ Régénérer'; toast('✅ Généré avec succès !','ok'); }, 1700+Math.random()*500);
-}
-
-function fmt(t){ return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'); }
-
-// ─── HOOKS ───
-function gHooks(){
-  const n=v('h-niche')||'marketing digital', p=v('h-prod')||'formation', r=v('h-result')||'gagner de l\'argent', a=v('h-audience')||'les débutants';
-  return [
-`🪝 **HOOK 1 — Statistique Choc**\n"${rnd(70,95)}% des créateurs dans la niche ${n} abandonnent avant de voir leur premier euro. Voilà exactement pourquoi ils échouent."`,
-`🪝 **HOOK 2 — POV Transformation**\n"POV : tu viens de découvrir la méthode exacte pour ${r} — sans expérience, sans budget, en partant de zéro."`,
-`🪝 **HOOK 3 — Question Directe**\n"Tu es dans la niche ${n} mais tes vidéos font moins de 1000 vues ? Attends 15 secondes, ça va tout changer."`,
-`🪝 **HOOK 4 — Contre-Intuitif**\n"Tout le monde te dit de poster tous les jours sur TikTok. C'est exactement pour ça que tu ne vends pas encore."`,
-`🪝 **HOOK 5 — Storytelling**\n"Il y a ${rnd(6,18)} mois j'avais 0 abonnés et 0€ de revenus. Voilà ce que j'ai changé pour ${r}."`,
-`🪝 **HOOK 6 — Promesse Spécifique**\n"Comment ${r} en ${rnd(14,30)} jours — même si tu es débutant complet en ${n}."`,
-`🪝 **HOOK 7 — FOMO**\n"Cette stratégie ${n} fonctionne encore en ${new Date().getFullYear()}. Dans 6 mois, elle sera saturée."`,
-`🪝 **HOOK 8 — Erreurs**\n"Si tu n'arrives pas encore à vendre avec ${p}, c'est à cause de ces 3 erreurs que personne ne dit."`,
-`🪝 **HOOK 9 — Résultat Chiffré**\n"J'ai généré ${rnd(800,3500)}€ en ${rnd(7,21)} jours avec ${p}. Voilà la méthode complète."`,
-`🪝 **HOOK 10 — Empathie**\n"Pour ${a} qui galèrent à ${r} : ce n'est pas de ta faute. Personne ne t'a expliqué ça."`,
-`\n---\n💡 **Conseil :** Teste les hooks 2, 5 et 9 en premier — ils convertissent 3x mieux pour la niche ${n}.`
-  ].join('\n\n');
-}
-
-// ─── SCRIPTS ───
-function gScripts(){
-  const p=v('s-prod')||'mon produit', fmt2=v('s-fmt')||'face cam', dur=v('s-dur')||'30', cta=v('s-cta')||'Lien en bio', b=v('s-benefit')||'transformer ta vie';
-  const t1=Math.round(dur*.35), t2=Math.round(dur*.7);
-  let out='';
-  if(fmt2==='face cam'||fmt2==='les deux'){
-    out+=`🎬 **VERSION FACE CAM — ${dur} secondes**\n\n`;
-    out+=`⏱ [0–3s] **HOOK** _(regarde caméra, expression intense)_\n"${hLine(p,b)}"\n\n`;
-    out+=`⏱ [3–${t1}s] **PROBLÈME** _(ton sérieux)_\n"La plupart des gens essaient de ${b.toLowerCase()} mais ils abandonnent — pas par manque de motivation, mais par manque de la bonne méthode."\n\n`;
-    out+=`⏱ [${t1}–${t2}s] **SOLUTION** _(ton confiant)_\n"C'est pour ça que j'ai créé ${p}. Un système simple, étape par étape, pour ${b.toLowerCase()} — même en partant de zéro."\n\n`;
-    out+=`⏱ [${t2}–${dur}s] **CTA** _(pointe vers le bas)_\n"Si tu veux les mêmes résultats, ${cta} maintenant — les places sont limitées."\n`;
-  }
-  if(fmt2==='les deux') out+='\n---\n\n';
-  if(fmt2==='faceless'||fmt2==='les deux'){
-    out+=`🎬 **VERSION FACELESS — ${dur} secondes**\n\n`;
-    out+=`⏱ [0–3s] **TEXTE ANIMÉ**\n"${hLine(p,b)}"\n🎵 Son trending avec beat drop\n\n`;
-    out+=`⏱ [3–${t1}s] **B-ROLL + VOIX OFF**\nVisuels : résultats, captures, avant/après\nVO : "La plupart échouent à ${b.toLowerCase()} faute de système. ${p} change ça."\n\n`;
-    out+=`⏱ [${t1}–${t2}s] **DÉMO**\nScreen recording ou résultats animés\nVO : "Avec ${p}, tu as tout ce qu'il faut pour ${b.toLowerCase()} dès aujourd'hui."\n\n`;
-    out+=`⏱ [${t2}–${dur}s] **CTA ANIMÉ**\nTexte : "⚡ ${cta}" (slide-in)\nFlèche → bio\nVO : "Prends ton accès maintenant →"\n`;
-  }
-  out+=`\n---\n✅ **CHECKLIST AVANT PUBLICATION**\n☐ Hook testé : tu continuerais à regarder ?\n☐ Sous-titres activés (+${rnd(25,40)}% rétention)\n☐ Lien bio à jour\n☐ Publier entre 19h–21h (pic audience)\n☐ Premier commentaire : ton CTA + lien`;
-  return out;
-}
-
-// ─── OFFER ───
-function gOffer(){
-  const n=v('o-name')||'Ma Formation', type=v('o-type')||'Formation', price=parseInt(v('o-price'))||47, niche=v('o-niche')||'marketing digital';
-  const c=Math.round(price*1.5/10)*10, bar=price*rnd(3,5);
-  return `💰 **PRIX CONSEILLÉ : ${c}€**\nPrix barré : ~~${bar}€~~ → **${c}€** (économie ${bar-c}€)\n\n✦ **TITRE D'OFFRE**\n"${n} : La méthode exacte pour dominer ${niche} — même en partant de zéro"\n\n⚡ **PROMESSE UNIQUE**\n"Le seul ${type.toLowerCase()} qui combine stratégie, outils ET support pour passer à l'action dès aujourd'hui."\n\n🎁 **5 BONUS IRRÉSISTIBLES**\n\n**Bonus 1 — "Guide Démarrage Rapide 48h"** (valeur : 47€)\n→ Lance dès demain sans procrastiner\n\n**Bonus 2 — "50 Hooks Viraux Prêts à l'Emploi"** (valeur : 37€)\n→ Économise 10h de brainstorming\n\n**Bonus 3 — "Templates TikTok Copy-Paste"** (valeur : 29€)\n→ Publie en 15 minutes\n\n**Bonus 4 — "Masterclass Mindset Vendeur"** (valeur : 19€)\n→ Élimine le frein psychologique n°1\n\n**Bonus 5 — "Accès Groupe VIP Lifetime"** (valeur : 97€)\n→ Communauté + sessions live hebdo\n\n💎 **VALEUR TOTALE : ${47+37+29+19+97+price}€**\n🔥 **TON PRIX : ${c}€**\n\n🛡️ **GARANTIE :** Satisfait ou remboursé 30 jours — aucune question posée\n\n🔥 **URGENCE :** "Seulement ${rnd(8,22)} places à ce prix — augmentation dans 48h"`;
-}
-
-// ─── EMAILS ───
-function gEmails(){
-  const p=v('e-prod')||'ma formation', price=v('e-price')||'97€', tr=v('e-transfo')||'transformer ta vie', br=v('e-brand')||'moi';
-  const pUp=Math.round(parseInt(price)*1.6)+'€';
-  return `📧 **EMAIL 1 — BIENVENUE (Jour 0)**\nObjet : Tu as fait le bon choix aujourd'hui 👋\n\nSalut [Prénom],\n\nBienvenue ! Je suis ${br}.\n\n${tr}, c'est possible. Mais pas de la façon dont on te l'explique d'habitude.\n\nDans les prochains jours, je partage exactement ce qui a tout changé pour moi — et comment toi aussi tu peux ${tr.toLowerCase()}.\n\nUne question : quel est ton plus grand obstacle en ce moment ?\nRéponds à cet email — je lis tout.\n\n${br}\n\n━━━━━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 2 — LE PROBLÈME (Jour 2)**\nObjet : Pourquoi ${rnd(85,97)}% échouent (et comment l'éviter)\n\nSalut [Prénom],\n\nLes 3 erreurs qui sabotent ${tr.toLowerCase()} :\n\n❌ **Erreur 1** : Copier ce qui marche pour les autres sans adapter\n❌ **Erreur 2** : Attendre d'être "prêt" — tu ne le seras jamais\n❌ **Erreur 3** : Négliger ce détail crucial que j'explique demain\n\nDemain : la solution. Guette ton inbox.\n\n${br}\n\n━━━━━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 3 — LA SOLUTION (Jour 3)**\nObjet : Voilà ce qui change TOUT, [Prénom]\n\nSalut [Prénom],\n\nJ'ai créé **${p}** exactement pour résoudre ce problème.\n\nCe que tu obtiens :\n✅ La méthode complète étape par étape\n✅ Les raccourcis que j'aurais voulu connaître\n✅ Support pour ne jamais rester bloqué\n\n👉 **Découvrir ${p} : [LIEN]**\nPrix de lancement : **${price}**\n\n${br}\n\n━━━━━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 4 — OBJECTIONS (Jour 5)**\nObjet : "Je n'ai pas le temps / les moyens..."  lisons ça\n\nSalut [Prénom],\n\n💭 _"Pas le temps"_ → 20 min/jour suffisent\n💭 _"Trop cher"_ → ${price} vs stagner 12 mois de plus. Quel est le vrai coût ?\n💭 _"Pas les compétences"_ → Mes meilleurs résultats viennent de débutants complets\n💭 _"Si ça marche pas ?"_ → Garantie 30 jours, remboursement intégral\n\nIl reste ${rnd(9,19)} places à ce prix. Ensuite : ${pUp}.\n\n👉 **Rejoindre : [LIEN]**\n\n${br}\n\n━━━━━━━━━━━━━━━━━━━━\n\n📧 **EMAIL 5 — DERNIÈRE CHANCE (Jour 7)**\nObjet : ⚠️ Fermeture dans 24h — dernier message [Prénom]\n\n[Prénom], c'est mon dernier email sur ce sujet.\n\nDans 24h, **${p}** passe de **${price}** à **${pUp}**.\n\n**Option 1** : Tu cliques maintenant → bloques ton prix → commences à ${tr.toLowerCase()}\n**Option 2** : Tu attends → tu paies plus\n\n👉 **Dernière chance — expire dans 24h : [LIEN]**\n\n${br}\n\nP.S. Des questions ? Réponds ici. Je réponds personnellement.`;
-}
-
-// ─── SALES PAGE ───
-function gSalesPage(){
-  const n=v('sp-name')||'Mon Produit', price=v('sp-price')||'97€', promise=v('sp-promise')||'atteindre tes objectifs', forWho=v('sp-for')||'les débutants', mods=v('sp-modules')||'contenu complet';
-  const val=Math.round(parseInt(price)*4)+'€', pUp=Math.round(parseInt(price)*1.5)+'€';
-  const modList=mods.split('\n').filter(Boolean).map((m,i)=>`✦ **Module ${i+1}** : ${m.trim()}`).join('\n');
-  return `━━━━ PAGE DE VENTE — ${n} ━━━━\n\n🔥 **HEADLINE**\n"${promise} — En ${rnd(14,30)} Jours Ou Je Te Rembourse Intégralement"\n\n📌 **SOUS-TITRE**\n"La méthode qu'utilisent déjà ${rnd(400,2500)} personnes pour ${promise.toLowerCase()} — sans expérience, sans budget."\n\n━━━━ PROBLÈME ━━━━\nTu en as assez de :\n• Regarder les autres réussir pendant que tu stagnes\n• Tester des stratégies sans jamais voir de résultats\n• Te sentir dépassé sans savoir par où commencer\n\nLa vérité : ce n'est pas ta faute. Il te manque juste le bon système.\n\n━━━━ TA SOLUTION ━━━━\n[Présente-toi ici — 3-4 phrases sur ton histoire et ta légitimité]\n\n"C'est pourquoi j'ai créé **${n}** — le système que j'ai mis ${rnd(6,18)} mois à perfectionner, et que tu acquiers en quelques minutes."\n\n━━━━ CE QUE TU REÇOIS ━━━━\n${modList||'✦ **Module 1** : [Ajoute tes modules ici]'}\n\n━━━━ ILS EN PARLENT ━━━━\n⭐⭐⭐⭐⭐ "J'ai réussi à ${promise.toLowerCase()} en ${rnd(14,21)} jours. Incroyable !" — Marie D.\n⭐⭐⭐⭐⭐ "Meilleur investissement de l'année. Résultats dès la première semaine." — Thomas R.\n⭐⭐⭐⭐⭐ "Simple, actionnable, et ça marche vraiment." — Sarah L.\n\n━━━━ PRIX ━━━━\n~~Valeur réelle : ${val}~~\n**Prix aujourd'hui : ${price}**\n\n━━━━ GARANTIE ━━━━\n🛡️ Satisfait ou remboursé 30 jours — sans question\n\n━━━━ FAQ ━━━━\n**Q : Pour débutants ?** → Oui, conçu spécialement pour ${forWho}.\n**Q : Temps requis ?** → 20-30 min/jour.\n**Q : Accès comment ?** → Immédiat après paiement, à vie.\n\n━━━━ CTA FINAL ━━━━\n🚀 **[BOUTON] → Oui, je veux ${promise} pour ${price}**\n_"Accès immédiat · Garantie 30 jours · Paiement sécurisé"_\n\n**P.S.** Prix de ${price} valable jusqu'à la fin de la semaine — ensuite ${pUp}.`;
-}
-
-// ─── ANALYZER ───
-function gAnalyzer(){
-  const desc=v('a-desc')||'vidéo standard', niche=v('a-niche')||'ma niche', goal=v('a-goal')||'vendre', score=rnd(5,8), bars='█'.repeat(score)+'░'.repeat(10-score), hs=rnd(4,9), ret=rnd(38,72);
-  return `📊 **SCORE GLOBAL : ${score}/10**\n[${bars}] ${score*10}%\n\n━━━━ HOOK (0–3s) ━━━━\n**Score : ${hs}/10**\n\n${hs>=6?'✅ Points forts :':'❌ Problèmes identifiés :'}\n• ${hs>=6?'Hook interpelle directement la cible':'Manque de spécificité et d\'impact'}\n• ${desc.length>60?'Bonne contextualisation':'Contexte insuffisant pour créer l\'identification'}\n\n**Manque :** spécificité + élément de curiosité + chiffre précis\n\n✏️ **Hook réécrit pour ${niche} :**\n"${hLine(niche,goal)} — méthode complète en ${rnd(20,45)} secondes."\n\n━━━━ STRUCTURE ━━━━\n**Rétention estimée : ${ret}% à 15 secondes**\nObjectif : 65%+ pour ${goal.toLowerCase()}\n\n${ret<55?'❌ Structure AIDA non respectée — problème trop tard':'⚠️ Structure acceptable mais optimisable'}\n\nTiming recommandé :\n• 0–3s : Hook | 3–8s : Problème | 8–20s : Solution+preuve | 20s+ : CTA\n\n━━━━ CTA ━━━━\n**Score : ${rnd(4,8)}/10**\n${desc.toLowerCase().includes('lien en bio')?'⚠️ "Lien en bio" trop générique — précise la valeur':'❌ CTA non détecté ou trop tardif'}\n\n**CTA améliorés :**\n→ "Lien en bio → accès gratuit seulement aujourd'hui" (urgence)\n→ "Commente 'INFO' je t\'envoie les détails" (engagement)\n\n━━━━ TOP 5 AMÉLIORATIONS ━━━━\n\n**1️⃣** Réécrire hook avec chiffre précis → **+${rnd(35,70)}% rétention à 3s**\n**2️⃣** Ajouter preuve sociale dans les 10 premières secondes\n**3️⃣** CTA avec urgence ou bénéfice précis → **+${rnd(25,50)}% clics**\n**4️⃣** Couper ${rnd(3,7)}s de présentation — aller plus vite à la valeur\n**5️⃣** Activer sous-titres animés → **+${rnd(20,35)}% rétention**\n\n━━━━ VERSION AMÉLIORÉE (0–10s) ━━━━\n[0–3s] "${hLine(niche,goal)}"\n[3–7s] "La plupart des créateurs ${niche} font cette erreur et perdent des semaines."\n[7–10s] "Je te montre la méthode complète — lien en bio, gratuit jusqu'à ce soir."`;
-}
-
-// ═══════════ EMAILJS ═══════════
-function sendMail(to,subject,body){
-  if(EJS_SVC==='YOUR_SERVICE_ID'){console.log('[EmailJS non configuré]\nÀ:',to,'\nSujet:',subject);return;}
-  emailjs.send(EJS_SVC,EJS_TPL,{to_email:to,subject,message:body}).catch(e=>console.warn('EmailJS:',e));
-}
-function sendLeadEmail(){
-  const email=v('lead-email'), niche=v('lead-niche');
-  if(!email){toast('Entre ton email 📧','err');return;}
-  const hooks=[
-    `🪝 "${rnd(70,95)}% des créateurs en ${niche||'ta niche'} abandonnent avant leur premier euro."`,
-    `🪝 "POV : tu découvres la méthode exacte pour dominer ${niche||'TikTok'} dès aujourd'hui."`,
-    `🪝 "Si tu es dans la niche ${niche||'marketing'}, regarde jusqu'au bout — ça change tout."`,
-    `🪝 "J'ai fait ${rnd(500,2000)}€ en ${rnd(7,14)} jours avec ${niche||'cette stratégie'}."`,
-    `🪝 "Cette erreur en ${niche||'marketing digital'} coûte des milliers à 9 créateurs sur 10."`,
-    `🪝 "Pour réussir en ${niche||'ta niche'}, commence par ça — personne ne te le dit."`,
-    `🪝 "Ce hook sur ${niche||'TikTok'} va transformer ta façon de créer du contenu."`,
-    `🪝 "Ce que les meilleurs de ${niche||'ta niche'} font différemment (et que tu ne vois pas)."`,
-    `🪝 "En 30 secondes je prouve que ${niche||'TikTok'} peut te rendre libre financièrement."`,
-    `🪝 "La stratégie ${niche||'TikTok'} qui génère ${rnd(300,1500)}€/semaine — gardée secrète."`
-  ];
-  const body=`Salut ! 👋\n\nVoici tes 10 hooks TikTok viraux pour la niche "${niche||'ton business'}" :\n\n${hooks.join('\n\n')}\n\n---\n⚡ Prêt à aller plus loin ?\nGénère tes scripts, emails et pages de vente sur HookFlow AI.\nAccès dès 1€ → hookflow.ai\n\nL'équipe HookFlow AI ⚡`;
-  sendMail(email,`🪝 Tes 10 hooks TikTok pour "${niche||'ton business'}"`,body);
-  sendMail(MY_EMAIL,`🔔 Nouveau lead — ${email}`,`Email : ${email}\nNiche : ${niche||'non précisée'}`);
-  toast('📧 Hooks envoyés sur '+email+' !','ok');
-  document.getElementById('lead-email').value='';
-  document.getElementById('lead-niche').value='';
-}
-
-// ═══════════ UTILS ═══════════
-function v(id){const el=document.getElementById(id);return el?el.value.trim():'';}
-function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function hLine(p,b){const l=[`Tu veux vraiment ${b||'réussir'} ? Voilà pourquoi ça ne marche pas encore.`,`La vraie raison pour laquelle personne ne parle de ${p||'cette méthode'}.`,`J'ai réussi à ${b||'tout changer'} en ${rnd(7,30)} jours — voilà comment.`,`Stop. Avant de scroller, écoute juste ça sur ${p||'cette stratégie'}.`,`Ce que les "gurus" de ${p||'TikTok'} ne te disent jamais.`];return l[Math.floor(Math.random()*l.length)];}
-function cp(t){const el=document.getElementById('rc-'+t);if(!el)return;navigator.clipboard.writeText(el.innerText).then(()=>toast('📋 Copié !','ok')).catch(()=>toast('Impossible','err'));}
-function toast(msg,type=''){const tc=document.getElementById('tc'),t=document.createElement('div');t.className='toast '+(type||'');t.textContent=msg;tc.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},3200);}
-
 // Scroll animations
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';}});},{threshold:.1});
-document.querySelectorAll('.fc,.tc2,.step,.plan').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='all .5s ease';obs.observe(el);});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: .1});
+document.querySelectorAll('.fc,.step,.tc').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
